@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>uTurn</title>
+</head>
+<body>
+<script src="jquery/jquery-1.11.0.js"></script>
+<div id="menu">
+    <img src="images/logo.png" width=110 height=80 alt="Logo for uTurn"/>
+    <a href="javascript:menu('search');">search</a>
+    <a href="javascript:menu('amplify');">amplify</a>
+    <a href="javascript:menu('move');">move</a>
+    <a href="javascript:menu(4);">link 4</a>
+</div>
+<div id="page">
+    <div id="search">
+        <input id='searchbox' type="text" name="searchfield" onkeypress="return searched(event)"/>
+        <input id='searchitem' style="display:none;"/>
+    </div>
+    <div id="waveform">
+        <canvas id="canvas" class="canvas" width="600" height="600">
+        </canvas>
+        <canvas id="selectcanvas" class="selectcanvas" width="600" height="600">
+        </canvas>
+    </div>
+    <div id='debug'></div>
+</div>
+<script src="main.js"></script>
+
+</body>
+</html>
+
