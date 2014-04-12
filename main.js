@@ -145,7 +145,8 @@ function getJson(id){
 amplify=false;
 move=false;
 function debug(string){
-    document.getElementById('debug').innerHTML+=string+"<br>";}
+    document.getElementById('debug').innerHTML=JSON.stringify(string)+"<br>" +document.getElementById('debug');
+}
 dragtarget=null;
 
 function getHeight(myheights, songnum, x){
@@ -220,9 +221,31 @@ function addAmplify(song, startX, stopX, amount)
     endTime = Math.round(stopX/3);
 
     debug(song +'|'+ startTime+'-'+endTime+': amplified '+amount);
-    var action = {'type':'amplify', 'song':song, 'start':startTime, 'end':endTime, 'details':amount};
+    var newAction = {'type':'amplify',
+                     'song':song,
+                     'start':startTime,
+                     'end':endTime,
+                     'details':{'amount':amount}};
     actions[actions.length] = action;
-    debug(JSON.stringify(actions))
+    debug(actions)
+}
+function getAmplification(time){
+    var amplification = 0;
+    for(i=0;i<actions.length;i+=1){
+        var action = actions[i];
+        if(action['type'] == 'amplify')
+        {
+            if(action['start'] < time && time < action['end'] ){
+                amplification += action['details']['amount'];
+            }
+        }
+    }
+}
+function getMaxAmplification(){
+    var maxAmplification = 0;
+    for(x=0;x<heights.length;x+=1){
+
+    }
 }
 function OnMouseUp(e){
     if(dragtarget!= null){
