@@ -216,10 +216,13 @@ function drawSelect(song,left,right,h){
 }
 function addAmplify(song, startX, stopX, amount)
 {
-    startTime = Math.round(startX);
-    endTime = Math.round(stopX);
+    startTime = Math.round(startX/3);
+    endTime = Math.round(stopX/3);
 
     debug(song +'|'+ startTime+'-'+endTime+': amplified '+amount);
+    var action = {'type':'amplify', 'song':song, 'start':startTime, 'end':endTime, 'details':amount};
+    actions[actions.length] = action;
+    debug(actions)
 }
 function OnMouseUp(e){
     if(dragtarget!= null){
@@ -319,6 +322,7 @@ function ready(){
     document.onmousedown=OnMouseDown;
     document.onmouseup=OnMouseUp;
     colors = new Array();
+    actions = new Array();
     amplify=false;
     move=false;
     durations = new Array();
