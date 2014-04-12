@@ -10,7 +10,23 @@ import BaseHTTPServer
 import SimpleHTTPServer
 import os
 import subprocess
+
+
+from apiclient.discovery import build
+from apiclient.errors import HttpError
+from oauth2client.tools import argparser
+
+DEVELOPER_KEY = "AIzaSyDfAxP3TEP1m16K6ysxbBeOAe9wF3d1-18"
+
+YOUTUBE_API_SERVICE_NAME = "youtube"
+YOUTUBE_API_VERSION = "v3"
+
+
+
 PORT = 8080
+
+
+
 def debug(string):
     print string
 
@@ -110,6 +126,19 @@ def findpeaks(videoid):
         except Exception as e:
             error('wave.jl failed!', e)
 
+
+def youtube_search(strang,max_results):
+  youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
+    developerKey=DEVELOPER_KEY)
+  search_response = youtube.search().list(
+    q=strang,
+    part="id,snippet",
+    maxResults=max_results
+  ).execute()
+  print search_response
+  return search_response
+
+
 class TestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     """The test example handler."""
 
@@ -119,7 +148,8 @@ class TestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         datastring = self.rfile.read(length)
         stage = int(datastring[0])
         videoid = datastring[1:]
-
+	if stage==0:
+	    result = youtube_search(videoid,10)
         if stage==1:
             download(videoid)
             result = '1'
