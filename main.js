@@ -214,12 +214,12 @@ function drawSelect(song,left,right,h){
         }
     }
 }
-function addAmplify(startX, stopX, amount)
+function addAmplify(var song, var startX, var stopX, var amount)
 {
     startTime = Math.round(startX);
     endTime = Math.round(stopX);
 
-    debug(startTime+'-'+endTime+': amplified '+amount);
+    debug(song, startTime+'-'+endTime+': amplified '+amount);
 }
 function OnMouseUp(e){
     if(dragtarget!= null){
@@ -242,7 +242,7 @@ function OnMouseUp(e){
         if(amplify == true){
             heights[selectSong] = moveheights[selectSong].slice(0);
             amplify=false;
-            addAmplify(dragStartX, dragStopX, dragStopY-currentY);
+            addAmplify(selectSong, selectStart, selectStop, dragStopY-dragStartY);
         }
         if(move==true){
             dx=dragStopX-dragStartX;
