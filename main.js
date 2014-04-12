@@ -222,7 +222,7 @@ function addAmplify(song, startX, stopX, amount)
     debug(song +'|'+ startTime+'-'+endTime+': amplified '+amount);
     var action = {'type':'amplify', 'song':song, 'start':startTime, 'end':endTime, 'details':amount};
     actions[actions.length] = action;
-    debug(actions)
+    debug(JSON.stringify(actions))
 }
 function OnMouseUp(e){
     if(dragtarget!= null){
