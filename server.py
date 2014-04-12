@@ -135,8 +135,12 @@ def youtube_search(strang,max_results):
     part="id,snippet",
     maxResults=max_results
   ).execute()
-  print search_response
-  return search_response
+  videos = [] ;
+  for search_result in search_response.get("items", []):
+    if search_result["id"]["kind"] == "youtube#video":
+      videos.append({ "title" :  str(search_result["snippet"]["title"]), "id" : str(search_result["id"]["videoId"])})
+       
+  return videos
 
 
 class TestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):

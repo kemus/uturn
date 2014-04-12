@@ -33,15 +33,13 @@ display:block;
 }
 #search {
     position:absolute;
+    background-color:#bbbbbb;
     top:150px;
     width:400px;
     height:300px;
     left:200px;
     z-index:20;
     display:none;
-     border: 1px solid #ccc;
-     -moz-border-radius: 10px;
-     -webkit-border-radius: 10px;
      border-radius: 10px;
      -moz-box-shadow: 2px 2px 3px #666;
      -webkit-box-shadow: 2px 2px 3px #666;
@@ -51,6 +49,10 @@ display:block;
     padding:10px;
     font-size:26px;
       outline: 0;
+    border:100px;
+     border: 1px solid #ccc;
+     -moz-border-radius: 10px;
+     -webkit-border-radius: 10px;
        -webkit-appearance: none;
 
 }

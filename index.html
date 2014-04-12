@@ -18,7 +18,9 @@
 </div>
 <div id="page">
     <div id="search">
-        <input id='searchbox' type="text" name="searchfield" onkeypress="return searched(event)"/>
+        <input id='searchbox' type="text" name="searchfield" onkeypress="return searchHandler(event)"/>
+	<br/>
+	<table id='searchtable'></table>
         <input id='searchitem' style="display:none;"/>
     </div>
     <div id="waveform">
@@ -30,6 +32,7 @@
     <div id='debug'></div>
 </div>
 <script src="main.js"></script>
+<script src="search.js"></script>
 
 </body>
 </html>
