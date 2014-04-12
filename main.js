@@ -324,4 +324,7 @@ function ready(){
     durations = new Array();
     moveheights=heights.slice(0);
     drawContext(heights);
+    debug('DUT5rEU6pqM');
+    debug('4W8EwuMOi8I');
+    debug('obV-OL3TwXo');
 }
