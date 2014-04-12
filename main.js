@@ -230,15 +230,6 @@ function OnMouseUp(e){
         dragStopY = e.clientY-100;
 
         dragtarget=null;
-        if(amplify == false && move==false){
-            selectStart = Math.min(dragStartX,dragStopX);
-            selectStop = Math.max(dragStartX,dragStopX);
-        }
-        else{
-            selectStart=0;
-            selectStop=0;
-            drawSelect(0,0,0,heights);
-        }
         if(amplify == true){
             heights[selectSong] = moveheights[selectSong].slice(0);
             amplify=false;
@@ -250,7 +241,16 @@ function OnMouseUp(e){
             heights[selectSong]=moveheights[selectSong].slice(0);
             move=false;
         }
-        drawContext(heights);
+        if(amplify == false && move==false){
+            selectStart = Math.min(dragStartX,dragStopX);
+            selectStop = Math.max(dragStartX,dragStopX);
+        }
+        else{
+            selectStart=0;
+            selectStop=0;
+            drawSelect(0,0,0,heights);
+        }
+         drawContext(heights);
     }
 }
 selectSong=0;
