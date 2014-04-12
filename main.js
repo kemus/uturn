@@ -214,7 +214,7 @@ function drawSelect(song,left,right,h){
         }
     }
 }
-function addAmplify(var song, var startX, var stopX, var amount)
+function addAmplify(song, startX, stopX, amount)
 {
     startTime = Math.round(startX);
     endTime = Math.round(stopX);
