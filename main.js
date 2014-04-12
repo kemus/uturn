@@ -87,7 +87,6 @@ function test_handle(req) {
         return
     }
 
-    debug(req.responseText);
     num=heights.length
     durations[num]=getDuration(req.responseText);
     heights[num]=getJson(req.responseText);
@@ -215,6 +214,13 @@ function drawSelect(song,left,right,h){
         }
     }
 }
+function addAmplify(startX, stopX, amount)
+{
+    startTime = Math.round(startX);
+    endTime = Math.round(stopX);
+
+    debug(startTime+'-'+endTime+': amplified '+amount);
+}
 function OnMouseUp(e){
     if(dragtarget!= null){
         document.onmousemove=null;
@@ -236,6 +242,7 @@ function OnMouseUp(e){
         if(amplify == true){
             heights[selectSong] = moveheights[selectSong].slice(0);
             amplify=false;
+            addAmplify(dragStartX, dragStopX, dragStopY-currentY);
         }
         if(move==true){
             dx=dragStopX-dragStartX;
@@ -306,6 +313,7 @@ function OnMouseMove(e){
         drawSelect(selectSong,startx,endx,heights);
     }
 }
+
 function ready(){
     heights=new Array();
     document.onmousedown=OnMouseDown;
@@ -314,9 +322,6 @@ function ready(){
     amplify=false;
     move=false;
     durations = new Array();
-    debug('DUT5rEU6pqM');
-    debug('4W8EwuMOi8I');
-    debug('obV-OL3TwXo');
     moveheights=heights.slice(0);
     drawContext(heights);
 }
