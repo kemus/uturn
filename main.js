@@ -219,7 +219,7 @@ function addAmplify(song, startX, stopX, amount)
     startTime = Math.round(startX);
     endTime = Math.round(stopX);
 
-    debug(song, startTime+'-'+endTime+': amplified '+amount);
+    debug(song +'|'+ startTime+'-'+endTime+': amplified '+amount);
 }
 function OnMouseUp(e){
     if(dragtarget!= null){
