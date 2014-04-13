@@ -127,12 +127,12 @@ function getJson(id){
     var oRequest =new XMLHttpRequest();
     var sURL = '../peaks/'+id+'.txt';
     var numSongs = heights.length;
-    var duration = durations[numSongs]
+    var duration = durations[numSongs];
     oRequest.open("GET",sURL,false);
-    oRequest.send(null)
+    oRequest.send(null);
     h=new Array();
-    Player['video'][Player['video'].length]={'id':id};
-    debug(Player);
+    //Player['video'][Player['video'].length]={'id':id};
+    //debug(Player);
     if (oRequest.status==200) {
         peaks=oRequest.responseText;
         peaks=eval(peaks);
@@ -327,4 +327,5 @@ function ready(){
     debug('DUT5rEU6pqM');
     debug('4W8EwuMOi8I');
     debug('obV-OL3TwXo');
+
 }
