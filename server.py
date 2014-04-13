@@ -128,19 +128,22 @@ def findpeaks(videoid):
 
 
 def youtube_search(strang,max_results):
-  youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
-    developerKey=DEVELOPER_KEY)
-  search_response = youtube.search().list(
-    q=strang,
-    part="id,snippet",
-    maxResults=max_results
-  ).execute()
-  videos = [] ;
-  for search_result in search_response.get("items", []):
-    if search_result["id"]["kind"] == "youtube#video":
-      videos.append({ "title" :  str(search_result["snippet"]["title"]), "id" : str(search_result["id"]["videoId"])})
-       
-  return videos
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
+      developerKey=DEVELOPER_KEY)
+    search_response = youtube.search().list(
+      q=strang,
+      part="id,snippet",
+      maxResults=max_results
+    ).execute()
+    videos = [] ;
+    for search_result in search_response.get("items", []):
+    
+        if search_result["id"]["kind"] == "youtube#video":
+            try:
+                videos.append({ "title" :  str(search_result["snippet"]["title"]), "id" : str(search_result["id"]["videoId"])})
+            except:
+                continue
+    return videos
 
 
 class TestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
