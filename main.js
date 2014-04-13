@@ -107,8 +107,8 @@ function searched(id) {
     stage = '1'
     xml_http_post("index.html", stage + id, test_handle)
     document.getElementById("searchbox").value = 'downloading song...';
-    document.getElementById("searchtable").innerHTML = '';
-    $("#searchtablediv").toggle();
+    //document.getElementById("searchtable").innerHTML = '';
+    //$("#searchtablediv").toggle();
 }
 
 function getJson(id) {
