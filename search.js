@@ -17,7 +17,7 @@ function search_handle(req) {
         row=table.insertRow(-1);
         left = row.insertCell(0);
         right= row.insertCell(1);
-        left.innerHTML = results[i]['id'];
+        left.innerHTML = '<img src="'+results[i]['id']+'"/>';
         right.innerHTML = results[i]['title'];
     }
     debug(req.responseText);
