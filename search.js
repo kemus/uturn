@@ -3,7 +3,6 @@ function searchHandler(e){
         var contents = document.getElementById("searchbox").value;
         stage='0'
             xml_http_post("index.html", stage+contents, search_handle)
-        document.getElementById("searchbox").value = 'downloading song...';
     }
 
 }
@@ -17,8 +16,11 @@ function search_handle(req) {
         row=table.insertRow(-1);
         left = row.insertCell(0);
         right= row.insertCell(1);
-        left.innerHTML = '<img src="thumb/'+results[i]['id']+'.jpg"/>';
-        right.innerHTML = results[i]['title'];
+        link = 'javascript:searched(\''+results[i]['id']+'\');';
+        left.innerHTML = '<a href="'+link+'"><img style="width:100px; height:100px;" src="'+results[i]['img']+'"/></a>';
+
+        right.innerHTML = '<a href="'+link+'">'+results[i]['title']+'</a>';
     }
+    $("#searchtablediv").toggle();
     debug(req.responseText);
 }

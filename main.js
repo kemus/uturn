@@ -111,15 +111,13 @@ function getDuration(id){
         return duration
     }
 }
-function searched(e){
-    if(e.which==13||e.keyCode==13){
-        var contents = document.getElementById("searchbox").value;
-        document.getElementById("searchitem").value = contents;
+function searched(id){
+        document.getElementById("searchitem").value = id;
         stage='1'
-        xml_http_post("index.html", stage+contents, test_handle)
-    }
+        xml_http_post("index.html", stage+id, test_handle)
     document.getElementById("searchbox").value = 'downloading song...';
-
+    document.getElementById("searchtable").innerHTML='';
+    $("#searchtablediv").toggle();
 }
 function getJson(id){
     var oRequest =new XMLHttpRequest();

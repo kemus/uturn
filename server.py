@@ -136,11 +136,12 @@ def youtube_search(strang,max_results):
       maxResults=max_results
     ).execute()
     videos = [] ;
+    print search_response;
     for search_result in search_response.get("items", []):
     
         if search_result["id"]["kind"] == "youtube#video":
             try:
-                videos.append({ "title" :  str(search_result["snippet"]["title"]), "id" : str(search_result["id"]["videoId"])})
+                videos.append({ "title" :  str(search_result["snippet"]["title"]), "id" : str(search_result["id"]["videoId"]), "img" : str(search_result["snippet"]["thumbnails"]["high"]["url"])})
             except:
                 continue
     return videos

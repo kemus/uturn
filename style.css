@@ -31,12 +31,19 @@ display:block;
    width:100%;
    height:auto;
 }
+#searchtablediv{
+    display:none;
+    overflow:auto;
+    overflow-x: hidden;
+    width:400px;
+    height:300px;
+}
 #search {
     position:absolute;
     background-color:#bbbbbb;
     top:150px;
     width:400px;
-    height:300px;
+    height:auto;
     left:200px;
     z-index:20;
     display:none;
