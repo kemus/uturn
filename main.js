@@ -1,4 +1,4 @@
--function menu(item){
+function menu(item){
     if(item=='search'){
         menuSearch();
         return;
