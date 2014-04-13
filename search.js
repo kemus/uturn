@@ -22,5 +22,4 @@ function search_handle(req) {
         right.innerHTML = '<a href="'+link+'">'+results[i]['title']+'</a>';
     }
     $("#searchtablediv").toggle();
-    debug(req.responseText);
 }

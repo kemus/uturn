@@ -1,4 +1,4 @@
-function menu(item){
+-function menu(item){
     if(item=='search'){
         menuSearch();
         return;
@@ -29,7 +29,9 @@ function menuAmplify(){
     amplify = true;
     move=false;
 }
+
 $(document).ready(ready());
+
 var peaks;
 
 ///////////////////////
@@ -127,6 +129,8 @@ function getJson(id){
     oRequest.open("GET",sURL,false);
     oRequest.send(null)
     h=new Array();
+    Player['video'][Player['video'].length]={'id':id};
+    debug(Player);
     if (oRequest.status==200) {
         peaks=oRequest.responseText;
         peaks=eval(peaks);
@@ -213,38 +217,6 @@ function drawSelect(song,left,right,h){
         }
     }
 }
-function addAmplify(song, startX, stopX, amount)
-{
-    startTime = Math.round(startX/3);
-    endTime = Math.round(stopX/3);
-
-    debug(song +'|'+ startTime+'-'+endTime+': amplified '+amount);
-    var newAction = {'type':'amplify',
-                     'song':song,
-                     'start':startTime,
-                     'end':endTime,
-                     'details':{'amount':amount}};
-    actions[actions.length] = action;
-    debug(actions)
-}
-function getAmplification(time){
-    var amplification = 0;
-    for(i=0;i<actions.length;i+=1){
-        var action = actions[i];
-        if(action['type'] == 'amplify')
-        {
-            if(action['start'] < time && time < action['end'] ){
-                amplification += action['details']['amount'];
-            }
-        }
-    }
-}
-function getMaxAmplification(){
-    var maxAmplification = 0;
-    for(x=0;x<heights.length;x+=1){
-
-    }
-}
 function OnMouseUp(e){
     if(dragtarget!= null){
         document.onmousemove=null;
@@ -257,7 +229,6 @@ function OnMouseUp(e){
         if(amplify == true){
             heights[selectSong] = moveheights[selectSong].slice(0);
             amplify=false;
-            addAmplify(selectSong, selectStart, selectStop, dragStopY-dragStartY);
         }
         if(move==true){
             dx=dragStopX-dragStartX;
@@ -339,6 +310,8 @@ function OnMouseMove(e){
 }
 
 function ready(){
+    Player = new Object();
+    Player['video']=new Array();
     heights=new Array();
     document.onmousedown=OnMouseDown;
     document.onmouseup=OnMouseUp;
