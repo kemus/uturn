@@ -23,7 +23,9 @@ function menuMove(){
     selectcontext.clearRect(0,0,800,600);
 }
 function menuSearch(){
+    debug('menusearch');
     $("#search").toggle();
+    debug('menusearch');
 }
 function menuAmplify(){
     amplify = true;
