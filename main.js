@@ -101,16 +101,6 @@ function test_handle(req) {
     drawContext(heights);
 }
 //////////////////////////////////////////////////////////////
-    var oRequest = new XMLHttpRequest();
-    var sURL = '../duration/' + id + '.txt';
-    oRequest.open("GET", sURL, false);
-    oRequest.send(null)
-    if (oRequest.status == 200) {
-        peaks = oRequest.responseText;
-        duration = eval(peaks);
-        return duration
-    }
-}
 
 function searched(id) {
     document.getElementById("searchitem").value = id;
