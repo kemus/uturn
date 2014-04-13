@@ -1,3 +1,8 @@
+function debug(string) {
+    $('#debug').innerHTML = JSON.stringify(string) +
+        "<br/>" + document.getElementById('debug');
+}
+
 function menu(item) {
     switch(item){
         case 'search': return menuSearch();
@@ -10,6 +15,7 @@ function menu(item) {
 function getContext(id){
     return document.getElementById(id).getContext('2d');
 }
+
 function menuMove() {
     window.move = true;
     window.amplify = false;
@@ -131,10 +137,7 @@ function getJson(id) {
 amplify = false;
 move = false;
 
-function debug(string) {
-    document.getElementById('debug').innerHTML = JSON.stringify(string) +
-        "<br/>" + document.getElementById('debug');
-}
+
 dragtarget = null;
 
 function getHeight(myheights, songnum, x) {
