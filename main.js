@@ -1,6 +1,5 @@
 function debug(string) {
-    $('#debug').innerHTML = JSON.stringify(string) +
-        "<br/>" + document.getElementById('debug');
+    $('#debug').prepend(JSON.stringify(string) + "<br/>")
 }
 
 function menu(item) {
