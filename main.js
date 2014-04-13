@@ -1,6 +1,16 @@
+/////////////////////////////////////////////////////////
+// Global variables and helper functions
+
+var peaks;
+
 function debug(string) {
     $('#debug').prepend(JSON.stringify(string) + "<br/>")
 }
+
+$(document).ready(ready());
+
+/////////////////////////////////////////////////////////
+// Menu button clicks
 
 function menu(item) {
     switch(item){
@@ -9,10 +19,6 @@ function menu(item) {
         case 'move': return menuMove();
         default: debug("unimplemented feature: " + item);
     }
-}
-
-function getContext(id){
-    return document.getElementById(id).getContext('2d');
 }
 
 function menuMove() {
@@ -29,22 +35,31 @@ function menuAmplify() {
     window.amplify = true;
     window.move = false;
 }
-$(document).ready(ready());
-var peaks;
-///////////////////////
+
+////////////////////////////////////////////////////////
+// Canvas modification
+function getContext(id){
+    return document.getElementById(id).getContext('2d');
+}
+
+
+////////////////////////////////////////////////////////
+// AJAX
+
 function xml_http_post(url, data, callback) {
     var req = false;
-    try {
-        // Firefox, Opera 8.0+, Safari
+    try { // Firefox, Opera 8.0+, Safari
         req = new XMLHttpRequest();
-    } catch (e) {
-        // Internet Explorer
-        try {
+    }
+    catch (e) {
+        try { // Internet Explorer
             req = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e) {
-            try {
+        }
+        catch (e) {
+            try { // More Internet Explorer
                 req = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch (e) {
+            }
+            catch (e) { // Oops
                 alert("Your browser does not support AJAX!");
                 return false;
             }
@@ -61,26 +76,23 @@ function xml_http_post(url, data, callback) {
 
 function test_handle(req) {
     var contents = document.getElementById("searchitem").value;
-    if (req.responseText == '1') {
-        stage = '2'
-        xml_http_post("index.html", stage + contents, test_handle)
-        document.getElementById("searchbox").value = 'downloading song...';
-        return
+    var stage;
+    switch (req.responseText){
+        case '1':
+            document.getElementById("searchbox").value = 'downloading song...';
+            xml_http_post("index.html", '2' + contents, test_handle);
+            return;
+        case '2':
+            document.getElementById("searchbox").value = 'converting song...';
+            xml_http_post("index.html", '3' + contents, test_handle);
+            return;
+        case '3':
+            document.getElementById("searchbox").value = 'retreiving waveform...';
+            xml_http_post("index.html", '4' + contents, test_handle);
+            return;
     }
-    if (req.responseText == '2') {
-        stage = '3'
-        xml_http_post("index.html", stage + contents, test_handle)
-        document.getElementById("searchbox").value = 'converting song...';
-        return
-    }
-    if (req.responseText == '3') {
-        stage = '4'
-        xml_http_post("index.html", stage + contents, test_handle)
-        document.getElementById("searchbox").value = 'retreiving waveform...';
-        return
-    }
+    // if we got the waveform...
     num = heights.length
-    durations[num] = getDuration(req.responseText);
     heights[num] = getJson(req.responseText);
     moveheights = heights.slice(0);
     colors[num] = '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -88,8 +100,7 @@ function test_handle(req) {
     $("#search").toggle();
     drawContext(heights);
 }
-/////////////////////
-function getDuration(id) {
+//////////////////////////////////////////////////////////////
     var oRequest = new XMLHttpRequest();
     var sURL = '../duration/' + id + '.txt';
     oRequest.open("GET", sURL, false);
@@ -114,7 +125,6 @@ function getJson(id) {
     var oRequest = new XMLHttpRequest();
     var sURL = '../peaks/' + id + '.txt';
     var numSongs = heights.length;
-    var duration = durations[numSongs];
     oRequest.open("GET", sURL, false);
     oRequest.send(null);
     h = new Array();
@@ -311,7 +321,6 @@ function ready() {
     actions = new Array();
     amplify = false;
     move = false;
-    durations = new Array();
     moveheights = heights.slice(0);
     drawContext(heights);
     debug('DUT5rEU6pqM');
