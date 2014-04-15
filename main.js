@@ -107,7 +107,11 @@ function searched(id) {
     stage = '1'
     xml_http_post("index.html", stage + id, test_handle)
     document.getElementById("searchbox").value = 'downloading song...';
-    //document.getElementById("searchtable").innerHTML = '';
+    //
+    var table = document.getElementById("searchtable");
+    for (var i = table.rows.length-1; i>=0; i--){
+        table.deleteRow(i)
+    }
     $("#searchtablediv").toggle();
 }
 
