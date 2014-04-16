@@ -14,20 +14,21 @@
     <a href="javascript:menu('search');">search</a>
     <a href="javascript:menu('amplify');">amplify</a>
     <a href="javascript:menu('move');">move</a>
-    <a href="javascript:menu(4);">link 4</a>
+    <a href="#">edit</a>
     <a href="javascript:playbutton();"><img id="playIcon" src="images/play.png" width=80 height=80 alt="Play Button"/></a>
 </div>
 <div id="page">
     <div id="search">
-        <input id='searchbox' type="text" name="searchfield" onkeypress="return searchHandler(event)"/>
+        <input id='searchbox' type="text" name="searchfield" placeholder="e.g. Kesha" onkeypress="return searchHandler(event)"/>
+        <button onclick="return searchHandler(event)">search</button>
 	<br/>
 	<div id='searchtablediv'><table id='searchtable'></table></div>
         <input id='searchitem' style="display:none;"/>
     </div>
     <div id="waveform">
-        <canvas id="canvas" class="canvas" width="600" height="600">
+        <canvas id="canvas" class="canvas" width="1000" height="600">
         </canvas>
-        <canvas id="selectcanvas" class="selectcanvas" width="600" height="600">
+        <canvas id="selectcanvas" class="selectcanvas" width="1000" height="600">
         </canvas>
     </div>
     <div id='debug'></div>
