@@ -17,7 +17,7 @@ function menu(item) {
         case 'search': return menuSearch();
         case 'amplify': return menuAmplify();
         case 'move': return menuMove();
-        default: debug("unimplemented feature: " + item);
+        default: alert("unimplemented feature: " + item);
     }
 }
 
