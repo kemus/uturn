@@ -95,7 +95,9 @@ function test_handle(req) {
     num = heights.length
     heights[num] = getJson(req.responseText);
     moveheights = heights.slice(0);
-    colors[num] = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    possible_colors = ["#FF0000", "#00FF00", "#0FF000", "#000FF0", "#F0000F"];
+    color_choice = Math.floor(Math.random()*len(possible_colors))
+    colors[num] = '#' + possible_colors[color_choice];
     document.getElementById("searchbox").value = '';
     $("#search").toggle();
     drawContext(heights);
