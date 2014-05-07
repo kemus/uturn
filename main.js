@@ -323,7 +323,7 @@ function ready() {
     //GET BROWSER WINDOW HEIGHT
     var currHeight = $(window).height();
     //SET HEIGHT OF SIDEBAR AND CONTENT ELEMENTS
-    $('#menu, #page').css('height', currHeight);
+    $('#menu, #page, #canvas, #selectcanvas').css('height', currHeight);
 
     //ON RESIZE OF WINDOW
     $(window).resize(function() {
@@ -331,7 +331,7 @@ function ready() {
         //GET NEW HEIGHT
         var currHeight = $(window).height();
         //RESIZE BOTH ELEMENTS TO NEW HEIGHT
-        $('#menu, #page').css('height', currHeight);
+        $('#menu, #page, #canvas, #selectcanvas').css('height', currHeight);
 
     });
     Player = new Object();
