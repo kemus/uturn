@@ -158,10 +158,10 @@ function getHeight(myheights, songnum, x) {
 function OnMouseDown(e) {
     var selectcanvas = document.getElementById('selectcanvas');
     target = e.target;
-    loffset = 15;
+    loffset = 120;
     if (target.className.indexOf('canvas') !== -1) {
         dragStartX = e.clientX - loffset;
-        dragStartY = e.clientY - 100;
+        dragStartY = e.clientY - 0;
         for (var song = 0; song < heights.length; song += 1) {
             if (dragStartY < getHeight(heights, song, dragStartX) || amplify ==
                 true) {
@@ -221,8 +221,8 @@ function OnMouseUp(e) {
         document.onmousemove = null;
         document.onselectstart = null;
         dragtarget.ondragstart = null;
-        dragStopX = e.clientX - 15;
-        dragStopY = e.clientY - 100;
+        dragStopX = e.clientX - 120;
+        dragStopY = e.clientY - 0;
         dragtarget = null;
         if (amplify == true) {
             heights[selectSong] = moveheights[selectSong].slice(0);
@@ -252,9 +252,10 @@ selectStop = 0;
 function OnMouseMove(e) {
     if (e == null)
         var e = window.event;
-    loffset = 15;
+    loffset = 120;
+    toffset = 0;
     currentX = e.clientX - loffset;
-    currentY = e.clientY - 100;
+    currentY = e.clientY - toffset;
     startx = Math.min(currentX, dragStartX);
     endx = Math.max(currentX, dragStartX);
     starty = Math.min(currentY, dragStartY);
@@ -306,6 +307,21 @@ function OnMouseMove(e) {
 }
 
 function ready() {
+
+    //GET BROWSER WINDOW HEIGHT
+    var currHeight = $(window).height();
+    //SET HEIGHT OF SIDEBAR AND CONTENT ELEMENTS
+    $('#menu, #page').css('height', currHeight);
+
+    //ON RESIZE OF WINDOW
+    $(window).resize(function() {
+
+        //GET NEW HEIGHT
+        var currHeight = $(window).height();
+        //RESIZE BOTH ELEMENTS TO NEW HEIGHT
+        $('#menu, #page').css('height', currHeight);
+
+    });
     Player = new Object();
     Player['video'] = new Array();
     heights = new Array();
