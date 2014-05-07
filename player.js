@@ -24,13 +24,14 @@ function acquirePlayer(video){
 }
 function playVideo(video){
     player = acquirePlayer(video);
+    player.currentTime = 0;
     player.play();
-    debug("played");
+    debug("played: " + player.id);
 }
 function stopVideo(video){
     player = acquirePlayer(video);
     player.pause();
-    debug('paysed');
+    debug("paused: " + player.id);
 }
 
 
