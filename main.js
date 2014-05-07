@@ -97,7 +97,7 @@ function test_handle(req) {
     moveheights = heights.slice(0);
     possible_colors = ["#FF0000", "#00FF00", "#0FF000", "#000FF0", "#F0000F"];
     color_choice = Math.floor(Math.random()*possible_colors.length)
-    colors[num] = possible_colors[color_choice];
+    colors[num] = possible_colors[num];
     document.getElementById("searchbox").value = '';
     $("#search").toggle();
     drawContext(heights);
