@@ -10,15 +10,16 @@
 <body>
 <script src="jquery/jquery-1.11.0.js"></script>
 <div id="menu">
-    <img src="images/logo.png" width=110 height=80 alt="Logo for uTurn"/>
-    <a href="javascript:menu('search');">search</a>
-    <a href="javascript:menu('amplify');">amplify</a>
-    <a href="javascript:menu('move');">move</a>
-    <a href="javascript:menu('edit')">edit</a>
-    <a id="undo" href="javascript:menu('undo');">undo</a>
+    <img src="images/logo.png" width=120 height=80 alt="Logo for uTurn"/> <br/>
+    <a href="javascript:menu('search');">search</a> <br/> <br/>
+    <a href="javascript:menu('amplify');">amplify</a> <br/>
+    <a href="javascript:menu('move');">move</a> <br/> <br/>
+    <a href="javascript:menu('undo')">undo</a> <br/>
+    <a href="javascript:menu('redo');">redo</a> <br/> <br/>
+    <a href="javascript:menu('save')">save</a> <br/>
+    <a href="javascript:menu('load')">load</a> <br/> <br/>
     <a href="javascript:playbutton();"><img id="playIcon" src="images/play.png" width=80 height=80 alt="Play Button"/></a>
-</div>
-<div id="page">
+</div><div id="page">
     <div id="search">
         <input id='searchbox' type="text" name="searchfield" placeholder="e.g. Kesha" onkeypress="return searchHandler(event)"/>
         <button onclick="return searchHandler(event)">search</button>
@@ -34,8 +35,7 @@
     </div>
     <div id='debug'></div>
 </div>
-<div id="playerDiv" style="display:none">
-</div>
+<div id="playerDiv" style="display:none"></div>
 <script src="main.js"></script>
 <script src="search.js"></script>
 <script src="player.js"></script>

@@ -1,23 +1,30 @@
 body{
     background-color:#ccc;
+    padding:0;
+    margin:0;
 }
 #menu {
-display:block;
+    display:block;
     background-color:black;
-   top:0px;
-   left:0px;
-   position:absolute;
-   width:100%;
-   height:100px;
+    text-align:center;
+    margin-left:0px;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-right:0px;
+    padding:0;
+    float:left;
+    height:100%;
+    width:120px;
 }
 #menu a {
     color:white;
     font-size:35px;
-    margin-left:50px;
     text-decoration:none;
     background-color:black;
     font-family: 'Oswald', sans-serif;
-
+}
+#menu a:hover {
+    color:#ccc;
 }
 #undo {
   margin-left:50px;
@@ -25,15 +32,12 @@ display:block;
 }
 .container {
     height:100%;
+    padding:0;
     width:100%;
 }
 #page {
 display:block;
-   top:100px;
-   left:0px;
-   position:absolute;
-   width:100%;
-   height:auto;
+    padding:0;
 }
 #searchtablediv{
     display:none;
@@ -82,14 +86,14 @@ button{
 .canvas{
     position:absolute;
     top:0px;
-    left:15px;
+    left:120px;
     z-index:5;
     display:block;
 }
 .selectcanvas{
     position:absolute;
     top:0px;
-    left:15px;
+    left:120px;
     z-index:10;
     pointer-events:none;
 }
