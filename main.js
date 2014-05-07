@@ -84,7 +84,7 @@ function shuffleArray(array) {
     return array;
 }
 
-possible_colors = shuffleArray(["#53FFF0", "#84E84B", "#FFD860", "#E8613D", "#DD63FF", "#FF7A11", "#E8159C", "#7874FF", "#40E8D4", "#75FF13" );
+possible_colors = shuffleArray(["#53FFF0", "#84E84B", "#FFD860", "#E8613D", "#DD63FF", "#FF7A11", "#E8159C", "#7874FF", "#40E8D4", "#75FF13"] );
 function test_handle(req) {
     var contents = document.getElementById("searchitem").value;
     var stage;
