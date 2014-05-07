@@ -74,6 +74,17 @@ function xml_http_post(url, data, callback) {
     req.send(data);
 }
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+possible_colors = shuffleArray(["#53FFF0", "#84E84B", "#FFD860", "#E8613D", "#DD63FF", "#FF7A11", "#E8159C", "#7874FF", "#40E8D4", "#75FF13" );
 function test_handle(req) {
     var contents = document.getElementById("searchitem").value;
     var stage;
@@ -95,7 +106,6 @@ function test_handle(req) {
     num = heights.length
     heights[num] = getJson(req.responseText);
     moveheights = heights.slice(0);
-    possible_colors = ["#FF0000", "#00FF00", "#0FF000", "#000FF0", "#F0000F"];
     color_choice = Math.floor(Math.random()*possible_colors.length)
     colors[num] = possible_colors[num];
     document.getElementById("searchbox").value = '';
