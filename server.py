@@ -91,6 +91,21 @@ def convert(videoid):
             subprocess.call(args)
         except Exception as e:
             error('ffmpeg failed!', e)
+def makemp3(videoid):
+    if not os.path.isfile('mp3/%s.mp3'%videoid):
+        debug("running ffmpeg")
+        args=['ffmpeg',
+              '-ab',
+              '128',
+              '-i',
+              'song/%s.m4a'%videoid,
+              'mp3/%s.mp3'%videoid
+             ]
+        try:
+            subprocess.call(args)
+        except Exception as e:
+            error('ffmpeg failed!', e)
+
 
 def waveform(videoid):
     with open('info/%s.json'%videoid,'r') as jsonfile:
@@ -166,6 +181,7 @@ class TestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             result = '1'
         if stage==2:
             convert(videoid)
+            makemp3(videoid)
             result = '2'
         if stage==3:
             waveform(videoid)
