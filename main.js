@@ -24,7 +24,6 @@ function menu(item) {
 function menuMove() {
     window.move = true;
     window.amplify = false;
-    getContext('selectcanvas').clearRect(0, 0, 800, 600);
 }
 
 function menuSearch() {
@@ -223,7 +222,7 @@ function applyAction(action, songheights){
     newheights = songheights.slice(0);
     if (action['type'] == 'amplify'){
         for (x = action['selectStart']; x < action['selectStop']; x += 1) {
-            newheights[x] += action['amount'];
+            newheights[x] -= action['amount'];
         }
     }
     return newheights.slice(0)
@@ -249,7 +248,8 @@ function OnMouseUp(e) {
             dx = dragStopX - dragStartX;
             num_actions = actions.length;
             actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':dragStartX, 'selectStop':dragStopX, 'amount':dx}
-            heights[selectSong] = moveheights[selectSong].slice(0);
+            heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
+            //heights[selectSong] = moveheights[selectSong].slice(0);
             move = false;
         }
         if (amplify == false && move == false) {
@@ -294,7 +294,7 @@ function OnMouseMove(e) {
         dx = currentX - dragStartX;
         adx = Math.abs(dx);
         if (dx < 0) {
-            for (x = 800; x >= currentX; x -= 1) {
+            for (x = selectStop; x >= currentX; x -= 1) {
                 if (isNaN(heights[selectSong][x - currentX + dragStartX])) {
                     moveheights[selectSong][x] = 0
                 } else {
@@ -306,13 +306,13 @@ function OnMouseMove(e) {
             drawSelect(selectSong, currentX, 800, moveheights);
         }
         if (dx > 0) {
-            for (x = 0; x <= currentX; x += 1) {
+            for (x = selectStart; x <= currentX; x += 1) {
                 if (isNaN(heights[selectSong][x - currentX + dragStartX])) {
                     moveheights[selectSong][x] = 0
                 } else {
                     moveheights[selectSong][x] = Math.max(heights[selectSong][x -
                         currentX + dragStartX
-                    ]);
+                    ], 0);
                 }
             }
             drawSelect(selectSong, 0, currentX, moveheights);
