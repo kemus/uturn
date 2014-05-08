@@ -295,13 +295,15 @@ function OnMouseMove(e) {
         adx = Math.abs(dx);
         selectWidth = selectStop-selectStart
         if (dx < 0) {
-            for (x = selectStop; x >= currentX; x -= 1) {
-                if (isNaN(heights[selectSong][x - currentX + dragStartX])) {
+            for (x = selectStop; x >= selectStop+dx; x -= 1) {
+                moveheights[selectSong][x]=0;
+            }
+            for (x = selectStart+dx; x<= selectStop+dx; x++) {
+
+                if (isNaN(heights[selectSong][x-dx])) {
                     moveheights[selectSong][x] = 0
                 } else {
-                    moveheights[selectSong][x] = Math.max(heights[selectSong][x -
-                        currentX + dragStartX
-                    ], 0);
+                    moveheights[selectSong][x] = Math.max(heights[selectSong][x - dx], 0);
                 }
             }
         }
