@@ -170,23 +170,24 @@ function OnMouseDown(e) {
     if (target.className.indexOf('canvas') !== -1) {
         dragStartX = e.clientX - loffset;
         dragStartY = e.clientY - 0;
-        for (var song = 0; song < heights.length; song += 1) {
-            if (dragStartY < getHeight(heights, song, dragStartX) || window.state == "amplify") {
-                if (window.state != "amplify") {
+        if (window.state == "select") {
+            for (var song = 0; song < heights.length; song += 1) {
+                if (dragStartY < getHeight(heights, song, dragStartX)) {
                     selectSong = song;
+                    break;
                 }
-                document.onmousemove = OnMouseMove;
-                document.body.focus();
-                document.onselectstart = function () {
-                    return false;
-                };
-                target.ondragstart = function () {
-                    return false;
-                };
-                dragtarget = target;
-                return false;
             }
         }
+        document.onmousemove = OnMouseMove;
+        document.body.focus();
+        document.onselectstart = function () {
+            return false;
+        };
+        target.ondragstart = function () {
+            return false;
+        };
+        dragtarget = target;
+        return false;
     }
 }
 //////////////////// `
