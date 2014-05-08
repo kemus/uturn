@@ -248,8 +248,8 @@ function OnMouseUp(e) {
             dx = dragStopX - dragStartX;
             num_actions = actions.length;
             actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':dragStartX, 'selectStop':dragStopX, 'amount':dx}
-            heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
-            //heights[selectSong] = moveheights[selectSong].slice(0);
+            //heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
+            heights[selectSong] = moveheights[selectSong].slice(0);
             move = false;
         }
         if (amplify == false && move == false) {
@@ -318,7 +318,7 @@ function OnMouseMove(e) {
                 }
             }
         }
-        drawSelect(selectSong, selectStart-dx, selectStop-dx, moveheights);
+        drawSelect(selectSong, selectStart+dx, selectStop+dx, moveheights);
         drawContext(moveheights);
     }
     if (move == false && amplify == false) { //selection
