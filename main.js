@@ -22,8 +22,12 @@ function menu(item) {
 }
 
 function menuMove() {
-    window.move = true;
-    window.amplify = false;
+    if (window.state != "move"){
+        window.state = "move";
+    }
+    else {
+        window.state = "select";
+    }
 }
 
 function menuSearch() {
@@ -31,8 +35,12 @@ function menuSearch() {
 }
 
 function menuAmplify() {
-    window.amplify = true;
-    window.move = false;
+    if (window.state!="amplify") {
+        window.state = "amplify";
+    }
+    else{
+        window.state="select"
+    }
 }
 
 ////////////////////////////////////////////////////////
@@ -139,10 +147,8 @@ function getJson(id) {
         alert("Error executing XMLHttpRequest call!");
     }
 }
-amplify = false;
-move = false;
 
-
+state="select";
 dragtarget = null;
 
 function getHeight(myheights, songnum, x) {
@@ -165,9 +171,8 @@ function OnMouseDown(e) {
         dragStartX = e.clientX - loffset;
         dragStartY = e.clientY - 0;
         for (var song = 0; song < heights.length; song += 1) {
-            if (dragStartY < getHeight(heights, song, dragStartX) || amplify ==
-                true) {
-                if (amplify == false) {
+            if (dragStartY < getHeight(heights, song, dragStartX) || window.state == "amplify") {
+                if (window.state != "amplify") {
                     selectSong = song;
                 }
                 document.onmousemove = OnMouseMove;
@@ -236,26 +241,27 @@ function OnMouseUp(e) {
         dragStopX = e.clientX - 120;
         dragStopY = e.clientY - 0;
         dragtarget = null;
-        if (amplify == true) {
-            dy = dragStartY - dragStopY;
-            num_actions = actions.length;
-            actions[num_actions] = {'type':'amplify', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dy}
-            heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
-            //heights[selectSong] = moveheights[selectSong].slice(0);
-            amplify = false;
-        }
-        if (move == true) {
-            dx = dragStopX - dragStartX;
-            num_actions = actions.length;
-            actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':dragStartX, 'selectStop':dragStopX, 'amount':dx}
-            //heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
-            heights[selectSong] = moveheights[selectSong].slice(0);
-            move = false;
-        }
-        if (amplify == false && move == false) {
+
+        if (window.state == "select") {
             selectStart = Math.min(dragStartX, dragStopX);
             selectStop = Math.max(dragStartX, dragStopX);
         } else {
+            dx = dragStopX - dragStartX;
+            dy = dragStartY - dragStopY;
+            num_actions = actions.length;
+            if (window.state == "amplify") {
+                actions[num_actions] = {'type':'amplify', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dy}
+                heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
+                //heights[selectSong] = moveheights[selectSong].slice(0);
+                window.state="select";
+            }
+            if (window.state=="move") {
+                actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':dragStartX, 'selectStop':dragStopX, 'amount':dx}
+                //heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
+                heights[selectSong] = moveheights[selectSong].slice(0);
+
+                window.state="select";
+            }
             selectStart = 0;
             selectStop = 0;
             drawSelect(0, 0, 0, heights);
@@ -276,11 +282,9 @@ function OnMouseMove(e) {
     currentY = e.clientY - toffset;
     startx = Math.min(currentX, dragStartX);
     endx = Math.max(currentX, dragStartX);
-    starty = Math.min(currentY, dragStartY);
-    endy = Math.max(currentY, dragStartY);
     dy = endy - starty;
     dx = endx - startx;
-    if (amplify == true) {
+    if (window.state=="amplify") {
         moveheights[selectSong] = heights[selectSong].slice(0);
         for (x = selectStart; x < selectStop; x += 1) {
             moveheights[selectSong][x] = Math.max(0, heights[selectSong][x] +
@@ -289,15 +293,15 @@ function OnMouseMove(e) {
         drawSelect(selectSong, selectStart, selectStop, moveheights);
         drawContext(moveheights)
     }
-    if (move == true) {
+    if (window.state=="move") {
         moveheights[selectSong] = heights[selectSong].slice(0);
         dx = currentX - dragStartX;
         adx = Math.abs(dx);
         selectWidth = selectStop-selectStart
-        for (x = selectStart; x <= selectStop; x += 1) {
+        for (x = selectStart; x < selectStop; x += 1) {
                 moveheights[selectSong][x]=0;
         }
-        for (x = selectStart+dx; x<= selectStop+dx; x++) {
+        for (x = selectStart+dx; x< selectStop+dx; x++) {
 
             if (isNaN(heights[selectSong][x-dx])) {
                 moveheights[selectSong][x] = 0
@@ -309,7 +313,7 @@ function OnMouseMove(e) {
         drawSelect(selectSong, selectStart+dx, selectStop+dx, moveheights);
         drawContext(moveheights);
     }
-    if (move == false && amplify == false) { //selection
+    if (window.state=="select") { //selection
         drawSelect(selectSong, startx, endx, heights);
     }
 }
@@ -339,8 +343,7 @@ function ready() {
     document.onmouseup = OnMouseUp;
     colors = new Array();
     actions = new Array();
-    amplify = false;
-    move = false;
+    window.state="select"
     moveheights = heights.slice(0);
     drawContext(heights);
     debug('DUT5rEU6pqM');
