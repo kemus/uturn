@@ -28,18 +28,27 @@ function changestate(s){
     if (window.state == 'amplify'){
         document.getElementById('moveb').style.color=null;
         document.getElementById('amplifyb').style.color="#888";
+        document.getElementById('searchb').style.color=null;
     }
     else {
         if (window.state == 'move'){
             document.getElementById('moveb').style.color="#888";
             document.getElementById('amplifyb').style.color=null;
+        document.getElementById('searchb').style.color=null;
+        }
+        else{
+            if (window.state == 'search'){
+            document.getElementById('moveb').style.color=null;
+            document.getElementById('amplifyb').style.color=null;
+        document.getElementById('searchb').style.color="#888";
         }
         else{
             document.getElementById('moveb').style.color=null;
             document.getElementById('amplifyb').style.color=null;
+        document.getElementById('searchb').style.color=null;
         }
     }
-
+    }
 }
 
 function menuMove() {
@@ -52,7 +61,14 @@ function menuMove() {
 }
 
 function menuSearch() {
-    $("#search").toggle();
+    if(window.state=='search'){
+        changestate('select');
+        $("#search").hide();
+    }
+    else{
+        changestate('search');
+        $("#search").show();
+    }
 }
 
 function menuAmplify() {
@@ -169,7 +185,7 @@ function getJson(id) {
     }
 }
 
-state="select";
+state="search";
 dragtarget = null;
 
 function getHeight(myheights, songnum, x) {
