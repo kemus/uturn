@@ -419,7 +419,7 @@ function ready() {
     //ON RESIZE OF WINDOW
     $(window).resize(function() {
         //GET NEW HEIGHT
-        var window.height = $(window).height();
+        window.height = $(window).height();
         //RESIZE BOTH ELEMENTS TO NEW HEIGHT
         $('#menu, #page').css('height', window.height);
 
