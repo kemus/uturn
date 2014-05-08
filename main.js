@@ -160,7 +160,7 @@ function searched(id) {
     for (var i = table.rows.length-1; i>=0; i--){
         table.deleteRow(i)
     }
-    $("#searchtablediv").toggle();
+    $("#searchtablediv").hide();
 }
 
 function getJson(id) {
