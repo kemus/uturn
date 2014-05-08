@@ -23,12 +23,31 @@ function menu(item) {
     }
 }
 
-function menuMove() {
-    if (window.state != "move"){
-        window.state = "move";
+function changechangestate(s){
+    window.state=s;
+    if (window.state == 'amplify'){
+        document.getElementById('moveb').className="";
+        document.getElementById('amplifyb').className="mainon";
     }
     else {
-        window.state = "select";
+        if (window.state == 'move'){
+            document.getElementById('moveb').className="mainon";
+            document.getElementById('amplifyb').className="";
+        }
+        else{
+            document.getElementById('moveb').className="";
+            document.getElementById('amplifyb').className="";
+        }
+    }
+
+}
+
+function menuMove() {
+    if (window.state != "move"){
+        changestate('move');
+    }
+    else {
+        changestate('select');
     }
 }
 
@@ -38,10 +57,10 @@ function menuSearch() {
 
 function menuAmplify() {
     if (window.state!="amplify") {
-        window.state = "amplify";
+        changestate('amplify');
     }
     else{
-        window.state="select"
+        changestate('select');
     }
 }
 
@@ -301,13 +320,13 @@ function OnMouseUp(e) {
                 actions[num_actions] = {'type':'amplify', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dy}
                 undoactions = new Array();
                 heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
-                window.state="select";
+                changestate("select");
             }
             if (window.state=="move") {
                 actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dx}
                 undoactions = new Array();
                 heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
-                window.state="select";
+                changestate("select");
             }
         }
         while(heights[selectSong][selectStart] <= 0){
@@ -394,7 +413,7 @@ function ready() {
     colors = new Array();
     actions = new Array();
     undoactions = new Array();
-    window.state="select"
+    changestate("select");
     moveheights = heights.slice(0);
     drawContext(heights);
     debug('DUT5rEU6pqM');

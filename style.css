@@ -23,6 +23,9 @@ body{
     background-color:black;
     font-family: 'Oswald', sans-serif;
 }
+#menuon {
+    color:#ddd;
+}
 #menu a:hover {
     color:#ccc;
 }
