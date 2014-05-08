@@ -262,6 +262,7 @@ function redo(){
         selectStop = action['selectStop'];
         heights[selectSong]=applyAction(action, heights[selectSong])
     }
+    drawSelect(selectSong, selectStart, selectStop, heights);
     drawContext(heights);
 }
 function undo(){
@@ -277,6 +278,7 @@ function undo(){
         selectStop = action['selectStop'];
         heights[selectSong]=applyAction(action, heights[selectSong])
     }
+    drawSelect(selectSong, selectStart, selectStop, heights);
     drawContext(heights);
 }
 function OnMouseUp(e) {
