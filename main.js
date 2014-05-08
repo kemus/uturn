@@ -293,6 +293,7 @@ function OnMouseMove(e) {
         moveheights[selectSong] = heights[selectSong].slice(0);
         dx = currentX - dragStartX;
         adx = Math.abs(dx);
+        selectWidth = selectStop-selectStart
         if (dx < 0) {
             for (x = selectStop; x >= currentX; x -= 1) {
                 if (isNaN(heights[selectSong][x - currentX + dragStartX])) {
@@ -305,17 +306,19 @@ function OnMouseMove(e) {
             }
         }
         if (dx > 0) {
-            for (x = selectStart; x <= currentX; x += 1) {
-                if (isNaN(heights[selectSong][x - currentX + dragStartX])) {
+            for (x = selectStart; x <= selectStart+dx; x += 1) {
+                moveheights[selectSong][x]=0;
+            }
+            for (x = selectStart+dx; x<= selectStop+dx; x++) {
+
+                if (isNaN(heights[selectSong][x-dx])) {
                     moveheights[selectSong][x] = 0
                 } else {
-                    moveheights[selectSong][x] = Math.max(heights[selectSong][x -
-                        currentX + dragStartX
-                    ], 0);
+                    moveheights[selectSong][x] = Math.max(heights[selectSong][x - dx], 0);
                 }
             }
         }
-        drawSelect(selectSong, selectStart, selectStop, moveheights);
+        drawSelect(selectSong, selectStart-dx, selectStop-dx, moveheights);
         drawContext(moveheights);
     }
     if (move == false && amplify == false) { //selection
