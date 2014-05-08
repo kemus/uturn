@@ -219,6 +219,16 @@ function drawSelect(song, left, right, h) {
     }
 }
 
+function applyAction(action, songheights){
+    newheights = songheights.slice(0);
+    if (action['type'] == 'amplify'){
+        for (x = action['selectStart']; x < action['selectStop']; x += 1) {
+            newheights['selectSong'][x] = songheights['selectSong'][x] + action['amount'];
+        }
+    }
+    return newheights.slice(0)
+ }
+
 function OnMouseUp(e) {
     if (dragtarget != null) {
         document.onmousemove = null;
@@ -231,7 +241,8 @@ function OnMouseUp(e) {
             dy = dragStartY - dragStopY;
             num_actions = actions.length;
             actions[num_actions] = {'type':'amplify', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dy}
-            heights[selectSong] = moveheights[selectSong].slice(0);
+            heights[selectSong] = applyAction(actions[num_actions], heights)
+            //heights[selectSong] = moveheights[selectSong].slice(0);
             amplify = false;
         }
         if (move == true) {
@@ -317,6 +328,7 @@ function ready() {
 
     //GET BROWSER WINDOW HEIGHT
     var currHeight = $(window).height();
+    var currWidth = $(window).width();
     //SET HEIGHT OF SIDEBAR AND CONTENT ELEMENTS
     $('#menu, #page').css('height', currHeight);
 
