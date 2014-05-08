@@ -373,6 +373,7 @@ function ready() {
     //GET BROWSER WINDOW HEIGHT
     var currHeight = $(window).height();
     var currWidth = $(window).width();
+    alert(currWidth-120);
     //SET HEIGHT OF SIDEBAR AND CONTENT ELEMENTS
     $('#menu, #page').css('height', currHeight);
 
