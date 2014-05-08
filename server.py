@@ -11,6 +11,7 @@ import os
 import threading
 import BaseHTTPServer
 import SimpleHTTPServer
+import SocketServer
 import os
 import subprocess
 
@@ -23,6 +24,9 @@ DEVELOPER_KEY = "AIzaSyDfAxP3TEP1m16K6ysxbBeOAe9wF3d1-18"
 
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
+class ThreadingSimpleServer(SocketServer.ThreadingMixIn,
+                           BaseHTTPServer.HTTPServer):
+    pass
 
 
 
@@ -156,7 +160,7 @@ def youtube_search(strang,max_results):
     videos = [] ;
     print search_response;
     for search_result in search_response.get("items", []):
-    
+
         if search_result["id"]["kind"] == "youtube#video":
             try:
                 videos.append({ "title" :  str(search_result["snippet"]["title"]), "id" : str(search_result["id"]["videoId"]), "img" : str(search_result["snippet"]["thumbnails"]["high"]["url"])})
@@ -174,8 +178,8 @@ class TestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         datastring = self.rfile.read(length)
         stage = int(datastring[0])
         videoid = datastring[1:]
-	if stage==0:
-	    result = youtube_search(videoid,10)
+    if stage==0:
+        result = youtube_search(videoid,10)
         if stage==1:
             download(videoid)
             result = '1'
@@ -194,9 +198,15 @@ class TestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 def start_server():
     """Start the server."""
     server_address = ("", PORT)
-    server = BaseHTTPServer.HTTPServer(server_address, TestHandler)
-    server.serve_forever()
 
+    server = ThreadingSimpleServer(('', port), TestHandler)
+    server.serve_forever()
+    try:
+        while 1:
+            sys.stdout.flush()
+            server.handle_request()
+    except KeyboardInterrupt:
+        print "Finished"
 if __name__ == "__main__":
     print "Running!"
     start_server()
