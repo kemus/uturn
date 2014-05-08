@@ -244,8 +244,8 @@ function applyAction(action, songheights){
                 newheights[x] = songheights[x - action['amount']];
             }
         }
-        selectStart+=dx;
-        selectStop+=dx;
+        selectStart+=action['amount'];
+        selectStop+=action['amount'];
     }
     return newheights.slice(0)
  }
