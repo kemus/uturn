@@ -23,7 +23,7 @@ function menu(item) {
     }
 }
 
-function changechangestate(s){
+function changestate(s){
     window.state=s;
     if (window.state == 'amplify'){
         document.getElementById('moveb').className="";
