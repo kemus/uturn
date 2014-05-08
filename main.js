@@ -237,7 +237,7 @@ function applyAction(action, songheights){
                 newheights[song][x]=0;
         }
         for (x = action['selectStart']+action['amount']; x< action['selectStop']+action['amount']; x++) {
-            if (isNaN(songheights[x - action['amount']])) {
+            if (isNaN(songheights[song][x - action['amount']])) {
                 newheights[song][x] = 0
             } else {
                 newheights[song][x] = songheights[song][x - action['amount']];
