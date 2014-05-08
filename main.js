@@ -294,32 +294,18 @@ function OnMouseMove(e) {
         dx = currentX - dragStartX;
         adx = Math.abs(dx);
         selectWidth = selectStop-selectStart
-        if (dx < 0) {
-            for (x = selectStop; x >= selectStop+dx; x -= 1) {
+        for (x = selectStart; x <= selectStop; x += 1) {
                 moveheights[selectSong][x]=0;
-            }
-            for (x = selectStart+dx; x<= selectStop+dx; x++) {
+        }
+        for (x = selectStart+dx; x<= selectStop+dx; x++) {
 
-                if (isNaN(heights[selectSong][x-dx])) {
-                    moveheights[selectSong][x] = 0
-                } else {
-                    moveheights[selectSong][x] = Math.max(heights[selectSong][x - dx], 0);
-                }
+            if (isNaN(heights[selectSong][x-dx])) {
+                moveheights[selectSong][x] = 0
+            } else {
+                moveheights[selectSong][x] = Math.max(heights[selectSong][x - dx], 0);
             }
         }
-        if (dx > 0) {
-            for (x = selectStart; x <= selectStart+dx; x += 1) {
-                moveheights[selectSong][x]=0;
-            }
-            for (x = selectStart+dx; x<= selectStop+dx; x++) {
 
-                if (isNaN(heights[selectSong][x-dx])) {
-                    moveheights[selectSong][x] = 0
-                } else {
-                    moveheights[selectSong][x] = Math.max(heights[selectSong][x - dx], 0);
-                }
-            }
-        }
         drawSelect(selectSong, selectStart+dx, selectStop+dx, moveheights);
         drawContext(moveheights);
     }
