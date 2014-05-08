@@ -199,7 +199,7 @@ def start_server():
     """Start the server."""
     server_address = ("", PORT)
 
-    server = ThreadingSimpleServer(('', port), TestHandler)
+    server = ThreadingSimpleServer(server_address, TestHandler)
     server.serve_forever()
     try:
         while 1:
