@@ -74,17 +74,7 @@ function xml_http_post(url, data, callback) {
     req.send(data);
 }
 
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
-}
-
-possible_colors = shuffleArray(["#53FFF0", "#84E84B", "#FFD860", "#E8613D", "#DD63FF", "#FF7A11", "#E8159C", "#7874FF", "#40E8D4", "#75FF13"] );
+possible_colors = ["#53FFF0", "#84E84B", "#FFD860", "#E8613D", "#DD63FF", "#FF7A11", "#E8159C", "#7874FF", "#40E8D4", "#75FF13"]
 function test_handle(req) {
     var contents = document.getElementById("searchitem").value;
     var stage;
@@ -105,6 +95,7 @@ function test_handle(req) {
     // if we got the waveform...
     num = heights.length
     heights[num] = getJson(req.responseText);
+    original_heights[num] = heights[num].slice(0)
     moveheights = heights.slice(0);
     color_choice = Math.floor(Math.random()*possible_colors.length)
     colors[num] = possible_colors[num];
@@ -194,7 +185,7 @@ function OnMouseDown(e) {
         }
     }
 }
-
+//////////////////// `
 function drawContext(h) {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
@@ -237,12 +228,16 @@ function OnMouseUp(e) {
         dragStopY = e.clientY - 0;
         dragtarget = null;
         if (amplify == true) {
+            dy = dragStartY - dragStopY;
+            num_actions = actions.length;
+            actions[num_actions] = {'type':'amplify', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dy}
             heights[selectSong] = moveheights[selectSong].slice(0);
             amplify = false;
         }
         if (move == true) {
             dx = dragStopX - dragStartX;
-            adx = Math.abs(dx);
+            num_actions = actions.length;
+            actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':dragStartX, 'selectStop':dragStopX, 'amount':dx}
             heights[selectSong] = moveheights[selectSong].slice(0);
             move = false;
         }
@@ -337,6 +332,7 @@ function ready() {
     Player = new Object();
     Player['video'] = new Array();
     heights = new Array();
+    original_heights = new Array();
     document.onmousedown = OnMouseDown;
     document.onmouseup = OnMouseUp;
     colors = new Array();
