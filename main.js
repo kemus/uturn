@@ -144,7 +144,8 @@ function test_handle(req) {
     color_choice = Math.floor(Math.random()*possible_colors.length)
     colors[num] = possible_colors[num];
     document.getElementById("searchbox").value = '';
-    $("#search").toggle();
+    $("#search").hide();
+    changestate('select');
     drawContext(heights);
 }
 //////////////////////////////////////////////////////////////
