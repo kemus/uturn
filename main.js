@@ -177,8 +177,8 @@ function getJson(id) {
     if (oRequest.status == 200) {
         peaks = oRequest.responseText;
         peaks = eval(peaks);
-        for (x = 0; x < peaks.length - 2; x += 3) {
-            h[x / 3] = (peaks[x] + peaks[x + 1] + peaks[x + 2]) / 3 * 200
+        for (x = 0; x < peaks.length; x += 2) {
+            h[x / 2] = (peaks[x] + peaks[x + 1]) / 2 * 300
         }
         return h
     } else {
@@ -232,9 +232,9 @@ function OnMouseDown(e) {
 function drawContext(h) {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
-    context.clearRect(0, 0, 800, 600);
+    context.clearRect(0, 0, window.width, window.height);
     for (var song = 0; song < heights.length; song += 1) {
-        for (x = 0; x <= 800; x += 1) {
+        for (x = 0; x <= window.width; x += 1) {
             context.strokeStyle = colors[song]
             context.beginPath();
             context.moveTo(x, getHeight(h, song - 1, x));
@@ -248,7 +248,7 @@ function drawContext(h) {
 function drawSelect(song, left, right, h) {
     var selectcanvas = document.getElementById('selectcanvas');
     var selectcontext = selectcanvas.getContext('2d');
-    selectcontext.clearRect(0, 0, 800, 600);
+    selectcontext.clearRect(0, 0, window.width, window.height);
     for (var x = left; x < right; x += 1) {
         if (h[song][x] > 0) {
             selectcontext.strokeStyle = '#0000FF';
@@ -407,21 +407,21 @@ function OnMouseMove(e) {
 function ready() {
 
     //GET BROWSER WINDOW HEIGHT
-    var currHeight = $(window).height();
-    var currWidth = $(window).width();
+    window.height = $(window).height()-5;
+    window.width = $(window).width()-125;
     //SET HEIGHT OF SIDEBAR AND CONTENT ELEMENTS
-    $('#menu, #page').css('height', currHeight);
-    document.getElementById('selectcanvas').height=currHeight;
-    document.getElementById('selectcanvas').width=currWidth;
-    document.getElementById('canvas').height=currHeight;
-    document.getElementById('canvas').width=currWidth;
+    $('#menu, #page').css('height', window.height);
+    document.getElementById('selectcanvas').height=window.height;
+    document.getElementById('selectcanvas').width=window.width;
+    document.getElementById('canvas').height=window.height;
+    document.getElementById('canvas').width=window.width;
 
     //ON RESIZE OF WINDOW
     $(window).resize(function() {
         //GET NEW HEIGHT
-        var currHeight = $(window).height();
+        var window.height = $(window).height();
         //RESIZE BOTH ELEMENTS TO NEW HEIGHT
-        $('#menu, #page').css('height', currHeight);
+        $('#menu, #page').css('height', window.height);
 
     });
     Player = new Object();
