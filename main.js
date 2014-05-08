@@ -160,7 +160,7 @@ function getHeight(myheights, songnum, x) {
     }
     for (var song = 0; song <= songnum; song += 1) {
         if (isNaN(myheights[song][x]) == false)
-            h += myheights[song][x]
+            h += Math.max(myheights[song][x],0);
     }
     return h
 }
