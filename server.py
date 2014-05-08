@@ -178,8 +178,8 @@ class TestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         datastring = self.rfile.read(length)
         stage = int(datastring[0])
         videoid = datastring[1:]
-    if stage==0:
-        result = youtube_search(videoid,10)
+        if stage==0:
+            result = youtube_search(videoid,10)
         if stage==1:
             download(videoid)
             result = '1'
