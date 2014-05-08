@@ -261,11 +261,11 @@ function OnMouseUp(e) {
                 heights[selectSong] = moveheights[selectSong].slice(0);
 
                 window.state="select";
+                selectStart+=dx;
+                selectStop+=dx;
             }
-            selectStart = 0;
-            selectStop = 0;
-            drawSelect(0, 0, 0, heights);
         }
+        drawSelect(selectSong, selectStart, selectStop, heights);
         drawContext(heights);
     }
 }
