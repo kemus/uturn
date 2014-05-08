@@ -226,7 +226,7 @@ function drawSelect(song, left, right, h) {
 
 function applyAction(action, songheights){
     newheights = songheights.slice(0);
-    song = action['selectedSong']
+    song = action['selectSong']
     if (action['type'] == 'amplify'){
         for (x = action['selectStart']; x < action['selectStop']; x += 1) {
             newheights[song][x] -= action['amount'];
