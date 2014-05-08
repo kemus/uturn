@@ -211,7 +211,7 @@ function drawSelect(song, left, right, h) {
     var selectcanvas = document.getElementById('selectcanvas');
     var selectcontext = selectcanvas.getContext('2d');
     selectcontext.clearRect(0, 0, 800, 600);
-    for (var x = left; x <= right; x += 1) {
+    for (var x = left; x < right; x += 1) {
         if (h[song][x] > 0) {
             selectcontext.strokeStyle = '#0000FF';
             selectcontext.beginPath();
@@ -259,14 +259,7 @@ function OnMouseUp(e) {
 
         if (window.state == "select") {
             selectStart = Math.min(dragStartX, dragStopX);
-            while(heights[selectSong][selectStart] <= 0){
-                selectStart+=1;
-            }
-
             selectStop = Math.max(dragStartX, dragStopX);
-            while(heights[selectSong][selectStop] <= 0){
-                selectStop-=1;
-            }
         } else {
             dx = dragStopX - dragStartX;
             dy = dragStartY - dragStopY;
@@ -274,19 +267,24 @@ function OnMouseUp(e) {
             if (window.state == "amplify") {
                 actions[num_actions] = {'type':'amplify', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dy}
                 heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
-                //heights[selectSong] = moveheights[selectSong].slice(0);
                 window.state="select";
             }
             if (window.state=="move") {
                 actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':dragStartX, 'selectStop':dragStopX, 'amount':dx}
-                //heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
-                heights[selectSong] = moveheights[selectSong].slice(0);
+                heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
 
                 window.state="select";
                 selectStart+=dx;
                 selectStop+=dx;
             }
         }
+        while(heights[selectSong][selectStart] <= 0){
+            selectStart+=1;
+        }
+        while(heights[selectSong][selectStop] <= 0){
+            selectStop-=1;
+        }
+
         drawSelect(selectSong, selectStart, selectStop, heights);
         drawContext(heights);
     }
