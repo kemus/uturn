@@ -176,6 +176,7 @@ function getJson(id) {
     Player['video'][Player['video'].length] = {
         'id': id
     };
+    Player['video'].forEach(acquirePlayer)
     debug(Player);
     if (oRequest.status == 200) {
         peaks = oRequest.responseText;
