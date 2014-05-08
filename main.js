@@ -226,20 +226,21 @@ function drawSelect(song, left, right, h) {
 
 function applyAction(action, songheights){
     newheights = songheights.slice(0);
+    song = action['selectedSong']
     if (action['type'] == 'amplify'){
         for (x = action['selectStart']; x < action['selectStop']; x += 1) {
-            newheights[x] -= action['amount'];
+            newheights[song][x] -= action['amount'];
         }
     }
     if (action['type'] =='move'){
         for (x = action['selectStart']; x < action['selectStop']; x += 1) {
-                newheights[x]=0;
+                newheights[song][x]=0;
         }
         for (x = action['selectStart']+action['amount']; x< action['selectStop']+action['amount']; x++) {
             if (isNaN(songheights[x - action['amount']])) {
-                newheights[x] = 0
+                newheights[song][x] = 0
             } else {
-                newheights[x] = songheights[x - action['amount']];
+                newheights[song][x] = songheights[song][x - action['amount']];
             }
         }
 
@@ -265,12 +266,12 @@ function OnMouseUp(e) {
             num_actions = actions.length;
             if (window.state == "amplify") {
                 actions[num_actions] = {'type':'amplify', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dy}
-                heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
+                heights = applyAction(actions[num_actions], heights)
                 window.state="select";
             }
             if (window.state=="move") {
                 actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dx}
-                heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
+                heights = applyAction(actions[num_actions], heights)
 
                 window.state="select";
                 selectStart+=dx;
