@@ -269,7 +269,7 @@ function OnMouseUp(e) {
                 window.state="select";
             }
             if (window.state=="move") {
-                actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':dragStartX, 'selectStop':dragStopX, 'amount':dx}
+                actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dx}
                 heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
 
                 window.state="select";
