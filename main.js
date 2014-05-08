@@ -259,7 +259,14 @@ function OnMouseUp(e) {
 
         if (window.state == "select") {
             selectStart = Math.min(dragStartX, dragStopX);
+            while(heights[selectSong][selectStart] <= 0){
+                selectStart+=1;
+            }
+
             selectStop = Math.max(dragStartX, dragStopX);
+            while(heights[selectSong][selectStop] <= 0){
+                selectStop-=1;
+            }
         } else {
             dx = dragStopX - dragStartX;
             dy = dragStartY - dragStopY;
