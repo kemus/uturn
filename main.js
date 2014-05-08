@@ -303,7 +303,6 @@ function OnMouseMove(e) {
                     ], 0);
                 }
             }
-            drawSelect(selectSong, currentX, 800, moveheights);
         }
         if (dx > 0) {
             for (x = selectStart; x <= currentX; x += 1) {
@@ -315,8 +314,8 @@ function OnMouseMove(e) {
                     ], 0);
                 }
             }
-            drawSelect(selectSong, 0, currentX, moveheights);
         }
+        drawSelect(selectSong, selectStart, selectStop, moveheights);
         drawContext(moveheights);
     }
     if (move == false && amplify == false) { //selection
