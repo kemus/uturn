@@ -26,17 +26,17 @@ function menu(item) {
 function changestate(s){
     window.state=s;
     if (window.state == 'amplify'){
-        document.getElementById('moveb').className="";
-        document.getElementById('amplifyb').className="mainon";
+        document.getElementById('moveb').style.color="#fff";
+        document.getElementById('amplifyb').style.color="#aaa";
     }
     else {
         if (window.state == 'move'){
-            document.getElementById('moveb').className="mainon";
-            document.getElementById('amplifyb').className="";
+            document.getElementById('moveb').style.color="#aaa";
+            document.getElementById('amplifyb').style.color="#fff";
         }
         else{
-            document.getElementById('moveb').className="";
-            document.getElementById('amplifyb').className="";
+            document.getElementById('moveb').style.color="#fff";
+            document.getElementById('amplifyb').style.color="#fff";
         }
     }
 
