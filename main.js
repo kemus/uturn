@@ -282,8 +282,6 @@ function OnMouseMove(e) {
     currentY = e.clientY - toffset;
     startx = Math.min(currentX, dragStartX);
     endx = Math.max(currentX, dragStartX);
-    dy = endy - starty;
-    dx = endx - startx;
     if (window.state=="amplify") {
         moveheights[selectSong] = heights[selectSong].slice(0);
         for (x = selectStart; x < selectStop; x += 1) {
