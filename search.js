@@ -2,7 +2,11 @@ function searchHandler(e){
     if(e.which==13||e.keyCode==13||e.type=='click'){
         var contents = document.getElementById("searchbox").value;
         stage='0';
-            xml_http_post("index.html", stage+contents, search_handle)
+        var table = document.getElementById("searchtable");
+        for (var i = table.rows.length-1; i>=0; i--){
+            table.deleteRow(i)
+        }
+        xml_http_post("index.html", stage+contents, search_handle)
     }
 
 }
