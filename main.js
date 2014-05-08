@@ -244,27 +244,38 @@ function applyAction(action, songheights){
                 newheights[x] = songheights[x - action['amount']];
             }
         }
-
+        selectStart+=dx;
+        selectStop+=dx;
     }
     return newheights.slice(0)
  }
 function redo(){
+    if undoactions.length==0:
+        return
     actions.push(undoactions.pop());
     heights=original_heights.slice(0);
     for (i = 0; i<actions.length; i++){
         action = actions[i];
-        song = action['selectSong'];
-        heights[song]=applyAction(action, heights[selectSong])
+        selectSong = action['selectSong'];
+        selectStart = action['selectStart'];
+        selectStop = action['selectStop'];
+        heights[selectSong]=applyAction(action, heights[selectSong])
     }
+    drawContext(heights);
 }
 function undo(){
+    if actions.length == 0:
+        return;
     undoactions.push(actions.pop());
     heights=original_heights.slice(0);
     for (i = 0; i<actions.length; i++){
         action = actions[i];
-        song = action['selectSong'];
-        heights[song]=applyAction(action, heights[selectSong])
+        selectSong = action['selectSong'];
+        selectStart = action['selectStart'];
+        selectStop = action['selectStop'];
+        heights[selectSong]=applyAction(action, heights[selectSong])
     }
+    drawContext(heights);
 }
 function OnMouseUp(e) {
     if (dragtarget != null) {
@@ -293,8 +304,6 @@ function OnMouseUp(e) {
                 undoactions = new Array();
                 heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
                 window.state="select";
-                selectStart+=dx;
-                selectStop+=dx;
             }
         }
         while(heights[selectSong][selectStart] <= 0){
