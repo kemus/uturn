@@ -59,7 +59,10 @@ function menuMove() {
         changestate('select');
     }
 }
-
+function closeSearch() {
+    $("#search").hide();
+    chagestate('select');
+}
 function menuSearch() {
     if(window.state=='search'){
         changestate('select');
