@@ -411,10 +411,13 @@ function ready() {
     var currWidth = $(window).width();
     //SET HEIGHT OF SIDEBAR AND CONTENT ELEMENTS
     $('#menu, #page').css('height', currHeight);
+    document.getElementById('selectcanvas').height=currHeight;
+    document.getElementById('selectcanvas').width=currWidth;
+    document.getElementById('canvas').height=currHeight;
+    document.getElementById('canvas').width=currWidth;
 
     //ON RESIZE OF WINDOW
     $(window).resize(function() {
-
         //GET NEW HEIGHT
         var currHeight = $(window).height();
         //RESIZE BOTH ELEMENTS TO NEW HEIGHT
