@@ -17,6 +17,8 @@ function menu(item) {
         case 'search': return menuSearch();
         case 'amplify': return menuAmplify();
         case 'move': return menuMove();
+        case 'undo': return undo();
+        case 'redo': return redo();
         default: alert("unimplemented feature: " + item);
     }
 }
@@ -227,15 +229,15 @@ function drawSelect(song, left, right, h) {
 function applyAction(action, songheights){
     newheights = songheights.slice(0);
     if (action['type'] == 'amplify'){
-        for (x = action['selectStart']; x < action['selectStop']; x += 1) {
+        for (x = action['selectStart']; x <= action['selectStop']; x += 1) {
             newheights[x] -= action['amount'];
         }
     }
     if (action['type'] =='move'){
-        for (x = action['selectStart']; x < action['selectStop']; x += 1) {
+        for (x = action['selectStart']; x <= action['selectStop']; x += 1) {
                 newheights[x]=0;
         }
-        for (x = action['selectStart']+action['amount']; x< action['selectStop']+action['amount']; x++) {
+        for (x = action['selectStart']+action['amount']; x<= action['selectStop']+action['amount']; x++) {
             if (isNaN(songheights[x - action['amount']])) {
                 newheights[x] = 0
             } else {
@@ -246,7 +248,24 @@ function applyAction(action, songheights){
     }
     return newheights.slice(0)
  }
-
+function redo(){
+    actions.push(undoactions.pop());
+    heights=original_heights.slice(0);
+    for (i = 0; i<actions.length; i++){
+        action = actions[i];
+        song = action['selectSong'];
+        heights[song]=applyAction(action, heights[selectSong])
+    }
+}
+function undo(){
+    undoactions.push(actions.pop());
+    heights=original_heights.slice(0);
+    for (i = 0; i<actions.length; i++){
+        action = actions[i];
+        song = action['selectSong'];
+        heights[song]=applyAction(action, heights[selectSong])
+    }
+}
 function OnMouseUp(e) {
     if (dragtarget != null) {
         document.onmousemove = null;
@@ -265,11 +284,13 @@ function OnMouseUp(e) {
             num_actions = actions.length;
             if (window.state == "amplify") {
                 actions[num_actions] = {'type':'amplify', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dy}
+                undoactions = new Array();
                 heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
                 window.state="select";
             }
             if (window.state=="move") {
                 actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dx}
+                undoactions = new Array();
                 heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
                 window.state="select";
                 selectStart+=dx;
@@ -302,7 +323,7 @@ function OnMouseMove(e) {
     endx = Math.max(currentX, dragStartX);
     if (window.state=="amplify") {
         moveheights[selectSong] = heights[selectSong].slice(0);
-        for (x = selectStart; x < selectStop; x += 1) {
+        for (x = selectStart; x <= selectStop; x += 1) {
             moveheights[selectSong][x] = Math.max(0, heights[selectSong][x] +
                 currentY - dragStartY);
         }
@@ -314,10 +335,10 @@ function OnMouseMove(e) {
         dx = currentX - dragStartX;
         adx = Math.abs(dx);
         selectWidth = selectStop-selectStart
-        for (x = selectStart; x < selectStop; x += 1) {
+        for (x = selectStart; x <= selectStop; x += 1) {
                 moveheights[selectSong][x]=0;
         }
-        for (x = selectStart+dx; x< selectStop+dx; x++) {
+        for (x = selectStart+dx; x<= selectStop+dx; x++) {
 
             if (isNaN(heights[selectSong][x-dx])) {
                 moveheights[selectSong][x] = 0
@@ -359,6 +380,7 @@ function ready() {
     document.onmouseup = OnMouseUp;
     colors = new Array();
     actions = new Array();
+    undoactions = new Array();
     window.state="select"
     moveheights = heights.slice(0);
     drawContext(heights);
