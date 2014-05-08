@@ -250,8 +250,9 @@ function applyAction(action, songheights){
     return newheights.slice(0)
  }
 function redo(){
-    if undoactions.length==0:
+    if (undoactions.length==0){
         return
+    }
     actions.push(undoactions.pop());
     heights=original_heights.slice(0);
     for (i = 0; i<actions.length; i++){
@@ -264,8 +265,9 @@ function redo(){
     drawContext(heights);
 }
 function undo(){
-    if actions.length == 0:
+    if (actions.length == 0){
         return;
+    }
     undoactions.push(actions.pop());
     heights=original_heights.slice(0);
     for (i = 0; i<actions.length; i++){
