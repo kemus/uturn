@@ -140,10 +140,10 @@ function test_handle(req) {
             return;
     }
     // if we got the waveform...
-    num = heights.length
-    heights[num] = getJson(req.responseText);
-    original_heights[num] = heights[num].slice(0)
-    moveheights = heights.slice(0);
+    num = window.heights.length
+    window.heights[num] = getJson(req.responseText);
+    original_heights[num] = window.heights[num].slice(0)
+    moveheights = window.heights.slice(0);
     color_choice = Math.floor(Math.random()*possible_colors.length)
     colors[num] = possible_colors[num];
     document.getElementById("searchbox").value = '';
@@ -169,7 +169,7 @@ function searched(id) {
 function getJson(id) {
     var oRequest = new XMLHttpRequest();
     var sURL = '../peaks/' + id + '.txt';
-    var numSongs = heights.length;
+    var numSongs = window.heights.length;
     oRequest.open("GET", sURL, false);
     oRequest.send(null);
     h = new Array();
@@ -213,7 +213,7 @@ function OnMouseDown(e) {
         dragStartX = e.clientX - loffset;
         dragStartY = e.clientY - 0;
         if (window.state == "select") {
-            for (var song = 0; song < heights.length; song += 1) {
+            for (var song = 0; song < window.heights.length; song += 1) {
                 if (dragStartY < getHeight(heights, song, dragStartX)) {
                     selectSong = song;
                     break;
@@ -237,7 +237,7 @@ function drawContext(h) {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     context.clearRect(0, 0, window.width, window.height);
-    for (var song = 0; song < heights.length; song += 1) {
+    for (var song = 0; song < window.heights.length; song += 1) {
         for (x = 0; x <= window.width; x += 1) {
             context.strokeStyle = colors[song]
             context.beginPath();
@@ -312,15 +312,15 @@ function redo(){
         return
     }
     actions.push(undoactions.pop());
-    heights=original_heights.slice(0);
+    window.heights=original_heights.slice(0);
     for (i = 0; i<actions.length; i++){
         action = actions[i];
         selectSong = action['selectSong'];
         selectStart = action['selectStart'];
         selectStop = action['selectStop'];
-        heights[selectSong]=applyAction(action, heights[selectSong])
+        window.heights[selectSong]=applyAction(action, window.heights[selectSong])
     }
-    drawSelect(selectSong, selectStart, selectStop, heights);
+    drawSelect(selectSong, selectStart, selectStop, window.heights);
     drawContext(heights);
 }
 function undo(){
@@ -328,15 +328,15 @@ function undo(){
         return;
     }
     undoactions.push(actions.pop());
-    heights=original_heights.slice(0);
+    window.heights=original_heights.slice(0);
     for (i = 0; i<actions.length; i++){
         action = actions[i];
         selectSong = action['selectSong'];
         selectStart = action['selectStart'];
         selectStop = action['selectStop'];
-        heights[selectSong]=applyAction(action, heights[selectSong])
+        window.heights[selectSong]=applyAction(action, window.heights[selectSong])
     }
-    drawSelect(selectSong, selectStart, selectStop, heights);
+    drawSelect(selectSong, selectStart, selectStop, window.heights);
     drawContext(heights);
 }
 function OnMouseUp(e) {
@@ -358,13 +358,13 @@ function OnMouseUp(e) {
             if (window.state == "amplify") {
                 actions[num_actions] = {'type':'amplify', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dy}
                 undoactions = new Array();
-                heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
+                window.heights[selectSong] = applyAction(actions[num_actions], window.heights[selectSong])
                 changestate("select");
             }
             if (window.state=="move") {
                 actions[num_actions] = {'type':'move', 'selectSong':selectSong, 'selectStart':selectStart, 'selectStop':selectStop, 'amount':dx}
                 undoactions = new Array();
-                heights[selectSong] = applyAction(actions[num_actions], heights[selectSong])
+                window.heights[selectSong] = applyAction(actions[num_actions], window.heights[selectSong])
                 changestate("select");
             }
         }
@@ -375,7 +375,7 @@ function OnMouseUp(e) {
             selectStop-=1;
         }
 
-        drawSelect(selectSong, selectStart, selectStop, heights);
+        drawSelect(selectSong, selectStart, selectStop, window.heights);
         drawContext(heights);
     }
 }
@@ -393,16 +393,16 @@ function OnMouseMove(e) {
     startx = Math.min(currentX, dragStartX);
     endx = Math.max(currentX, dragStartX);
     if (window.state=="amplify") {
-        moveheights[selectSong] = heights[selectSong].slice(0);
+        moveheights[selectSong] = window.heights[selectSong].slice(0);
         for (x = selectStart; x <= selectStop; x += 1) {
-            moveheights[selectSong][x] = Math.max(0, heights[selectSong][x] +
+            moveheights[selectSong][x] = Math.max(0, window.heights[selectSong][x] +
                 currentY - dragStartY);
         }
         drawSelect(selectSong, selectStart, selectStop, moveheights);
         drawContext(moveheights)
     }
     if (window.state=="move") {
-        moveheights[selectSong] = heights[selectSong].slice(0);
+        moveheights[selectSong] = window.heights[selectSong].slice(0);
         dx = currentX - dragStartX;
         adx = Math.abs(dx);
         selectWidth = selectStop-selectStart
@@ -422,13 +422,10 @@ function OnMouseMove(e) {
         drawContext(moveheights);
     }
     if (window.state=="select") { //selection
-        drawSelect(selectSong, startx, endx, heights);
+        drawSelect(selectSong, startx, endx, window.heights);
     }
 }
-function setPlayTick(s){
-    window.playtick=s
-    drawPlay(heights);
-}
+
 
 function ready() {
 
@@ -454,15 +451,19 @@ function ready() {
     });
     Player = new Object();
     Player['video'] = new Array();
-    heights = new Array();
+    window.heights = new Array();
     original_heights = new Array();
+    function setPlayTick(s){
+        window.playtick=s
+        drawPlay(heights);
+    }
     document.onmousedown = OnMouseDown;
     document.onmouseup = OnMouseUp;
     colors = new Array();
     actions = new Array();
     undoactions = new Array();
     changestate("select");
-    moveheights = heights.slice(0);
+    moveheights = window.heights.slice(0);
     drawContext(heights);
     debug('DUT5rEU6pqM');
     debug('4W8EwuMOi8I');
