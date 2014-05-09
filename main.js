@@ -172,6 +172,9 @@ function getJson(id) {
     var numSongs = window.heights.length;
     oRequest.open("GET", sURL, false);
     oRequest.send(null);
+    Player['video'][Player['video'].length] = {
+        'id': id
+    };
     window.videoids[numSongs] = id;
     h = new Array();
     if (oRequest.status == 200) {
