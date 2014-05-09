@@ -170,11 +170,12 @@ function getJson(id) {
     var oRequest = new XMLHttpRequest();
     var sURL = '../peaks/' + id + '.txt';
     var numSongs = window.heights.length;
-    oRequest.open("GET", sURL, false);
-    oRequest.send(null);
     Player['video'][Player['video'].length] = {
         'id': id
     };
+    oRequest.open("GET", sURL, false);
+    oRequest.send(null);
+
     window.videoids[numSongs] = id;
     h = new Array();
     if (oRequest.status == 200) {
