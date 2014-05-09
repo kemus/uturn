@@ -6,7 +6,7 @@ function playbutton(){
 }
 Player.play = function (){
     for (i=0; i< window.videoids.length; i+=1){
-        play(i,window.videoids[i]);
+        playVideo(i);
     }
 }
 
@@ -122,17 +122,8 @@ function interpretActions(){
     }
     Player['video'].forEach(compile)
 }
-
-function playVideo(video){
-    i = acquirePlayer(video);
-    setPosition(i,0);
-    play(i, video['id']);
-    debug("played: " + video['id']);
-    window.clearInterval(interval);
-}
-function playVideo(video){
+function playVideo(player){
     alert("s")
-    player = acquirePlayer(video);
     setPosition(player, 0);
     setVolume(player,50);
     video.commands.forEach(function (command) {
