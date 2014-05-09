@@ -123,7 +123,6 @@ function interpretActions(){
     Player['video'].forEach(compile)
 }
 function playVideo(player){
-    alert("s")
     setPosition(player, 0);
     setVolume(player,50);
     Player.video[player].commands.forEach(function (command) {
@@ -139,8 +138,8 @@ function playVideo(player){
                 //setPlayTick(Math.floor(getFlashObject(player).position*tau/1000));
                 //function f() {setPlayTick(Math.floor(getFlashObject(player).position*tau/1000))}
                 //interval = setInterval(f,100);
-                //alert("play");
                 },command.time*1000/tau);
+                alert("play");
         }
 
         if(command.type == "stop"){
