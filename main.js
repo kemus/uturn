@@ -271,17 +271,17 @@ function drawPlay(h) {
 
     playcontext.clearRect(0, 0, window.width, window.height);
     for(var x = 0; x < window.width; x += 90) {
-        selectcontext.strokeStyle = '#777777';
-        selectcontext.beginPath();
-        selectcontext.moveTo(x, 0);
-        selectcontext.lineTo(x, window.height);
-        selectcontext.closePath();
-        selectcontext.stroke();
+        playcontext.strokeStyle = '#777777';
+        playcontext.beginPath();
+        playcontext.moveTo(x, 0);
+        playcontext.lineTo(x, window.height);
+        playcontext.closePath();
+        playcontext.stroke();
     }
-    selectcontext.strokeStyle = '#000000';
-    selectcontext.beginPath();
-    selectcontext.moveTo(window.playticks,0);
-    selectcontext.moveTo(window.playticks,getHeight(h, 99, window.playticks));
+    playcontext.strokeStyle = '#000000';
+    playcontext.beginPath();
+    playcontext.moveTo(window.playticks,0);
+    playcontext.moveTo(window.playticks,getHeight(h, 99, window.playticks));
 }
 
 function applyAction(action, songheights){
