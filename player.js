@@ -13,9 +13,7 @@ function playbutton(){
 }
 Player.play = function (){
     for (i=0; i< window.videoids.length; i+=1){
-//        playVideo(i);
-                alert(i +"|"+ Player.video[i].id);
-                play(i, Player.video[i].id);
+        playVideo(i);
     }
 }
 
@@ -139,15 +137,15 @@ function playVideo(player){
             setTimeout(function(){setVolume(player, 50 + 100*command.amount)}, command.time*1000/tau);
             }
         if(command.type == "start"){
-                //setTimeout(function(){
+                setTimeout(function(){
                 t = command.from/tau;
                 alert(player +"|"+ Player.video[player].id);
-                play(player, Player.video[player].id);
                 setPosition(player, command.from*1000/tau);
+                play(player, Player.video[player].id);
                 //setPlayTick(Math.floor(getFlashObject(player).position*tau/1000));
                 //function f() {setPlayTick(Math.floor(getFlashObject(player).position*tau/1000))}
                 //interval = setInterval(f,100);
-                //},command.time*1000/tau);
+                },command.time*1000/tau);
         }
 
         if(command.type == "stop"){
