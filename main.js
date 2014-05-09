@@ -427,6 +427,10 @@ function OnMouseMove(e) {
     }
 }
 
+    function setPlayTick(s){
+        window.playtick=s
+        drawPlay(heights);
+    }
 
 function ready() {
 
@@ -454,10 +458,6 @@ function ready() {
     Player['video'] = new Array();
     window.heights = new Array();
     original_heights = new Array();
-    function setPlayTick(s){
-        window.playtick=s
-        drawPlay(heights);
-    }
     document.onmousedown = OnMouseDown;
     document.onmouseup = OnMouseUp;
     colors = new Array();
