@@ -134,10 +134,10 @@ function playVideo(video){
     //alert(video["id"])
     player = acquirePlayer(video);
     setPosition(player, 0);
-    setVolume(player,0.5);
+    setVolume(player,50);
     video.commands.forEach(function (command) {
         if(command.type == "volume"){
-            setTimeout(function(){setVolume(player, getFlashObject(player).volume + command.amount)}, command.time*1000/tau);
+            setTimeout(function(){setVolume(player, 50 + command.amount)}, command.time*1000/tau);
             }
         if(command.type == "start"){
                 setTimeout(function(){
