@@ -172,6 +172,7 @@ function playbutton(){
     img = document.getElementById("playIcon") ;
         img.src = (img.src.indexOf("stop") != -1)? "images/play.png" : "images/stop.png";
         (img.src.indexOf("play") != -1)? Player.stop() : Player.play();
+    window.clearInterval(interval);
     return false;
 }
 
