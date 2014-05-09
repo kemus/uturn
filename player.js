@@ -141,9 +141,9 @@ function playVideo(player){
                 t = command.from/tau;
                 play(player, Player.video[player].id);
                 setTimeout(function(){setPosition(player, command.from*1000/tau)}, 100);
-                //setPlayTick(Math.floor(getFlashObject(player).position*tau/1000));
-                //function f() {setPlayTick(Math.floor(getFlashObject(player).position*tau/1000))}
-                //interval = setInterval(f,100);
+                setPlayTick(Math.floor(command.from*tau));
+                function f() {setPlayTick(window.playticks + 1))}
+                interval = setInterval(f,1000/tau);
                 },command.time*1000/tau);
         }
 
@@ -152,6 +152,7 @@ function playVideo(player){
                 setPosition(player, command.time*1000/tau);
                 pause(player);
                 },command.time*1000/tau);
+                window.clearInterval(interval);
         }}
          );
     debug("played: " + player);
@@ -175,9 +176,7 @@ myListener.onInit = function()
 {
     this.position = 0;
 };
-/**
- * * Update
- * */
+
 myListener.onUpdate = function()
 {
 };
