@@ -200,7 +200,6 @@ def start_server():
     server_address = ("", PORT)
 
     server = ThreadingSimpleServer(server_address, TestHandler)
-    server.serve_forever()
     try:
         while 1:
             sys.stdout.flush()
