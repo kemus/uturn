@@ -131,7 +131,7 @@ function playVideo(video){
     window.clearInterval(interval);
 }
 function playVideo(video){
-    //alert(video["id"])
+    alert("s")
     player = acquirePlayer(video);
     setPosition(player, 0);
     setVolume(player,50);
