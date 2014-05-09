@@ -14,9 +14,9 @@ function playbutton(){
 Player.play = function (){
     for (i=0; i< window.videoids.length; i+=1){
 //        playVideo(i);
-                alert(player +"|"+ Player.video[player].id);
-                play(player, Player.video[player].id);
-                setPosition(player, command.from*1000/tau);
+                alert(i +"|"+ Player.video[i].id);
+                play(i, Player.video[i].id);
+                setPosition(i, 0);
 
     }
 }
