@@ -247,8 +247,8 @@ function drawContext(h) {
             context.stroke();
         }
     }
+    drawPlay(h);
 }
-
 function drawSelect(song, left, right, h) {
     var selectcanvas = document.getElementById('selectcanvas');
     var selectcontext = selectcanvas.getContext('2d');
@@ -264,6 +264,24 @@ function drawSelect(song, left, right, h) {
             selectcontext.stroke();
         }
     }
+}
+function drawPlay(h) {
+    var playcanvas = document.getElementById('playcanvas');
+    var playcontext = playcanvas.getContext('2d');
+
+    playcontext.clearRect(0, 0, window.width, window.height);
+    for(var x = 0; x < window.width; x += 90) {
+        selectcontext.strokeStyle = '#777777';
+        selectcontext.beginPath();
+        selectcontext.moveTo(x, 0);
+        selectcontext.lineTo(x, window.height);
+        selectcontext.closePath();
+        selectcontext.stroke();
+    }
+    selectcontext.strokeStyle = '#000000';
+    selectcontext.beginPath();
+    selectcontext.moveTo(window.playticks,0);
+    selectcontext.moveTo(window.playticks,getHeight(h, 99, window.playticks));
 }
 
 function applyAction(action, songheights){
@@ -407,6 +425,10 @@ function OnMouseMove(e) {
         drawSelect(selectSong, startx, endx, heights);
     }
 }
+function setPlayTick(s){
+    window.playtick=s
+    drawPlay(heights);
+}
 
 function ready() {
 
@@ -415,6 +437,8 @@ function ready() {
     window.width = $(window).width()-125;
     //SET HEIGHT OF SIDEBAR AND CONTENT ELEMENTS
     $('#menu, #page').css('height', window.height);
+    document.getElementById('playcanvas').height=window.height;
+    document.getElementById('playcanvas').width=window.width;
     document.getElementById('selectcanvas').height=window.height;
     document.getElementById('selectcanvas').width=window.width;
     document.getElementById('canvas').height=window.height;
