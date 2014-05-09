@@ -134,7 +134,7 @@ function playVideo(player){
                 setTimeout(function(){
                 pause(player);
                 t = command.from/tau;
-                play(player, video['id']);
+                play(player, Player.video[player].id);
                 setPosition(player, command.from*1000/tau);
                 //setPlayTick(Math.floor(getFlashObject(player).position*tau/1000));
                 //function f() {setPlayTick(Math.floor(getFlashObject(player).position*tau/1000))}
