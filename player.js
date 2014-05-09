@@ -133,13 +133,13 @@ function playVideo(player){
                 setTimeout(function(){
                 pause(player);
                 t = command.from/tau;
+                alert("play" + player + "|"+Player.video[player].id);
                 play(player, Player.video[player].id);
                 setPosition(player, command.from*1000/tau);
                 //setPlayTick(Math.floor(getFlashObject(player).position*tau/1000));
                 //function f() {setPlayTick(Math.floor(getFlashObject(player).position*tau/1000))}
                 //interval = setInterval(f,100);
                 },command.time*1000/tau);
-                alert("play");
         }
 
         if(command.type == "stop"){
