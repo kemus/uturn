@@ -271,10 +271,10 @@ function drawPlay(h) {
 
     playcontext.clearRect(0, 0, window.width, window.height);
     for(var x = 0; x < window.width; x += 90) {
-        playcontext.strokeStyle = '#777777';
+        playcontext.strokeStyle = '#999999';
         playcontext.beginPath();
         playcontext.moveTo(x, 0);
-        playcontext.lineTo(x, window.height);
+        playcontext.lineTo(x, getHeight(h, h.length-1, x));
         playcontext.closePath();
         playcontext.stroke();
     }
