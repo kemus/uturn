@@ -211,6 +211,7 @@ function setPosition(num, pos)
 }
 function setVolume(num, vol)
 {
+    alert("setting volume "+num+" to "+vol);
     getFlashObject(num).SetVariable("method:setVolume", vol);
 }
 /*
