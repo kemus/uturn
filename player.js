@@ -5,12 +5,16 @@ function playbutton(){
     return false;
 }
 Player.play = function (){
-    Player['video'].forEach(playVideo);
+    for (i=0; i< window.videoids.length; i+=1){
+        play(i,window.videoids[i]);
+    }
 }
 
 
 Player.stop = function (){
-    Player['video'].forEach(stopVideo);
+    for (i=0; i< window.videoids.length; i+=1){
+        pause(i);
+    }
 }
 function acquirePlayer(video){
     for(i = 0; i<window.videoids.length; i+=1){
@@ -23,7 +27,7 @@ function acquirePlayer(video){
 function stopVideo(video){
     i= acquirePlayer(video);
     pause(i);
-    debug("paused: " + player.id);
+    debug("paused: " + player);
 }
 
 tau = 3;
@@ -137,7 +141,7 @@ function playVideo(video){
             }
         if(command.type == "start"){
                 setTimeout(function(){
-                player.pause();
+                pause(player);
                 t = command.from/tau;
                 play(player, video['id']);
                 setPlayTick(Math.floor(getFlashObject(player).position*tau/1000));
@@ -154,7 +158,7 @@ function playVideo(video){
                 },command.time*1000/tau);
         }}
          );
-    debug("played: " + player.id);
+    debug("played: " + player);
 }
 
 
