@@ -1,3 +1,10 @@
+function play(num, id)
+{
+    getFlashObject(num).SetVariable("method:setUrl", "/mp3/"+id+".mp3 ");
+
+    getFlashObject(num).SetVariable("method:play", "");
+    getFlashObject(num).SetVariable("enabled", "true");
+}
 function playbutton(){
     img = document.getElementById("playIcon") ;
         img.src = (img.src.indexOf("stop") != -1)? "images/play.png" : "images/stop.png";
@@ -180,13 +187,7 @@ function getFlashObject(num)
 {
     return document.getElementById("fplayer"+num);
 }
-function play(num, id)
-{
-    getFlashObject(num).SetVariable("method:setUrl", "/mp3/"+id+".mp3 ");
 
-    getFlashObject(num).SetVariable("method:play", "");
-    getFlashObject(num).SetVariable("enabled", "true");
-}
 function pause(num)
 {
     getFlashObject(num).SetVariable("method:pause", "");
