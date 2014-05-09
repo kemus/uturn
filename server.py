@@ -195,7 +195,7 @@ class RangeHTTPRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 
     """
 
-    server_version = "RangeHTTP/" + __version__
+    server_version = "RangeHTTP"
 
     def do_GET(self):
         """Serve a GET request."""
