@@ -202,8 +202,12 @@ def start_server():
     server = ThreadingSimpleServer(server_address, TestHandler)
     try:
         while 1:
-            sys.stdout.flush()
-            server.handle_request()
+            try:
+                sys.stdout.flush()
+                server.handle_request()
+            except Exception as e:
+                print "Exception blocked: ", e
+                continue
     except KeyboardInterrupt:
         print "Finished"
 if __name__ == "__main__":
