@@ -16,8 +16,6 @@ Player.play = function (){
 //        playVideo(i);
                 alert(i +"|"+ Player.video[i].id);
                 play(i, Player.video[i].id);
-                setPosition(i, 0);
-
     }
 }
 
