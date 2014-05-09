@@ -126,7 +126,7 @@ def waveform(videoid):
         debug('running wav2png')
         args=['./wav2png',
               '-w'
-              '%s'%str(int(duration)*3),
+              '%s'%str(int(duration)*4),
               '-o',
               'png/%s.png'%videoid,
               'wav/%s.wav'%videoid
