@@ -172,12 +172,8 @@ function getJson(id) {
     var numSongs = window.heights.length;
     oRequest.open("GET", sURL, false);
     oRequest.send(null);
+    window.videoids[numSongs] = id;
     h = new Array();
-    Player['video'][Player['video'].length] = {
-        'id': id
-    };
-    Player['video'].forEach(acquirePlayer)
-    debug(Player);
     if (oRequest.status == 200) {
         peaks = oRequest.responseText;
         peaks = eval(peaks);
@@ -456,6 +452,7 @@ function ready() {
         $('#menu, #page').css('height', window.height);
 
     });
+    window.videoids=new Array();
     Player = new Object();
     Player['video'] = new Array();
     window.heights = new Array();
