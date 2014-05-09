@@ -73,7 +73,7 @@ function apply(c,cs){
     bug = c
     out = []
     if(c.type == 'amplify'){
-        out = [{type:'volume' , amount : -100*c.amount, time : c.selectStart},{ type: 'volume', amount: 100*c.amount, time : c.selectStop}].concat(cs)
+        out = [{type:'volume' , amount : -1*c.amount, time : c.selectStart},{ type: 'volume', amount: 1*c.amount, time : c.selectStop}].concat(cs)
     }
     if(c.type == 'stop'){
         out = [c].concat(cs)
@@ -137,16 +137,17 @@ function playVideo(video){
     setVolume(player,50);
     video.commands.forEach(function (command) {
         if(command.type == "volume"){
-            setTimeout(function(){setVolume(player, 50 + command.amount)}, command.time*1000/tau);
+            setTimeout(function(){setVolume(player, 50 + 100*command.amount)}, command.time*1000/tau);
             }
         if(command.type == "start"){
                 setTimeout(function(){
                 pause(player);
                 t = command.from/tau;
                 play(player, video['id']);
-                setPlayTick(Math.floor(getFlashObject(player).position*tau/1000));
-                function f() {setPlayTick(Math.floor(getFlashObject(player).position*tau/1000))}
-                interval = setInterval(f,100);
+                setPosition(player, command.from*1000/tau);
+                //setPlayTick(Math.floor(getFlashObject(player).position*tau/1000));
+                //function f() {setPlayTick(Math.floor(getFlashObject(player).position*tau/1000))}
+                //interval = setInterval(f,100);
                 //alert("play");
                 },command.time*1000/tau);
         }
