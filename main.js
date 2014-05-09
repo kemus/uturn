@@ -281,7 +281,7 @@ function drawPlay(h) {
     playcontext.strokeStyle = '#000000';
     playcontext.beginPath();
     playcontext.moveTo(window.playticks,0);
-    playcontext.moveTo(window.playticks,getHeight(h, 99, window.playticks));
+    playcontext.moveTo(window.playticks,getHeight(h, h.length-1, window.playticks));
 }
 
 function applyAction(action, songheights){
