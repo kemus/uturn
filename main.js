@@ -368,13 +368,14 @@ function OnMouseUp(e) {
                 changestate("select");
             }
         }
+        if (heights.length > 0){
         while(heights[selectSong][selectStart] <= 0){
             selectStart+=1;
         }
         while(heights[selectSong][selectStop] <= 0){
             selectStop-=1;
         }
-
+        }
         drawSelect(selectSong, selectStart, selectStop, window.heights);
         drawContext(heights);
     }
