@@ -73,7 +73,7 @@ function apply(c,cs){
     bug = c
     out = []
     if(c.type == 'amplify'){
-        out = [{type:'volume' , amount : -1*c.amount, time : c.selectStart},{ type: 'volume', amount: c.amount, time : c.selectStop}].concat(cs)
+        out = [{type:'volume' , amount : -100*c.amount, time : c.selectStart},{ type: 'volume', amount: 100*c.amount, time : c.selectStop}].concat(cs)
     }
     if(c.type == 'stop'){
         out = [c].concat(cs)
