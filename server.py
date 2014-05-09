@@ -447,4 +447,7 @@ def start_server():
         print "Finished"
 if __name__ == "__main__":
     print "Running!"
-    start_server()
+    try:
+        start_server()
+    except Exception as e:
+        print "Exception blocked: ", e
