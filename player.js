@@ -137,7 +137,7 @@ function playVideo(video){
     setVolume(player,0.5);
     video.commands.forEach(function (command) {
         if(command.type == "volume"){
-            setTimeout(function(){setVolume(player) = getFlashObject(player).volume + command.amount;}, command.time*1000/tau);
+            setTimeout(function(){setVolume(player, getFlashObject(player).volume + command.amount)}, command.time*1000/tau);
             }
         if(command.type == "start"){
                 setTimeout(function(){
@@ -211,7 +211,6 @@ function setPosition(num, pos)
 }
 function setVolume(num, vol)
 {
-    alert("setting volume "+num+" to "+vol);
     getFlashObject(num).SetVariable("method:setVolume", vol);
 }
 /*
