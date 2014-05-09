@@ -5,7 +5,6 @@ function playbutton(){
     return false;
 }
 Player.play = function (){
-    Player['video'].forEach(waitVideo);
     Player['video'].forEach(playVideo);
 }
 
