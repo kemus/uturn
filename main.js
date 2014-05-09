@@ -429,7 +429,7 @@ function OnMouseMove(e) {
 
     function setPlayTick(s){
         window.playticks=s
-        drawPlay(heights);
+        drawPlay(window.heights);
     }
 
 function ready() {
