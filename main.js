@@ -181,8 +181,8 @@ function getJson(id) {
     if (oRequest.status == 200) {
         peaks = oRequest.responseText;
         peaks = eval(peaks);
-        for (x = 0; x < peaks.length; x += 1) {
-            h[x] = (peaks[x]) * 300
+        for (x = 0; x < peaks.length - 1; x += 2) {
+            h[x/2] = (peaks[x] + peaks[x+1])/2 * 300
         }
         return h
     } else {
