@@ -126,7 +126,7 @@ function playVideo(player){
     alert("s")
     setPosition(player, 0);
     setVolume(player,50);
-    video.commands.forEach(function (command) {
+    Player.video[player].commands.forEach(function (command) {
         if(command.type == "volume"){
             setTimeout(function(){setVolume(player, 50 + 100*command.amount)}, command.time*1000/tau);
             }
