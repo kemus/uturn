@@ -7,6 +7,7 @@ function playbutton(){
 Player.play = function (){
     for (i=0; i< window.videoids.length; i+=1){
         playVideo(i);
+
     }
 }
 
@@ -181,9 +182,8 @@ function getFlashObject(num)
 }
 function play(num, id)
 {
-    if (myListener.position == 0) {
-        getFlashObject(num).SetVariable("method:setUrl", "/mp3/"+id+".mp3 ");
-    }
+    getFlashObject(num).SetVariable("method:setUrl", "/mp3/"+id+".mp3 ");
+
     getFlashObject(num).SetVariable("method:play", "");
     getFlashObject(num).SetVariable("enabled", "true");
 }
